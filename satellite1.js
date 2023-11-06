@@ -1,7 +1,7 @@
-var satellite1 = {
+var Satellite1 = {
     check: function(){
     console.log("Satellite1 Ready !")
     return true
     }
     }
-    module.exports = satellite1
+    module.exports = Satellite1
