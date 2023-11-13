@@ -1,9 +1,10 @@
 var Command = {
 	check : function(){
 		console.log("Cyan level checked".cyan);
-		console.log("Command Ready !");
 		console.log("Blue level checked".blue);
-		return true;
+		console.log("magenta level checked".magenta)
+		console.log("Command Ready !")
+	return true
 	}
 }
 module.exports = Command;
