@@ -1,7 +1,7 @@
 var Engine = {
   check: function () {
     console.log("Engine Ready !");
-    console.log("Gray level checked".gray);
+    console.log("Blue level checked".blue)
     return true;
   }
 };
