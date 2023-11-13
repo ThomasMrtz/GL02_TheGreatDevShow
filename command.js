@@ -1,7 +1,8 @@
 var Command = {
 	check : function(){
-	console.log("Command Ready !")
-	return true
+	console.log("Cyan level checked".cyan);
+	console.log("Command Ready !");
+	return true;
 	}
 }
-module.exports = Command
+module.exports = Command;
