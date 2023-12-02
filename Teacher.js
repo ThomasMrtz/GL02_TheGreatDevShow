@@ -33,16 +33,4 @@ END:VCARD
   }
 }
 
-// Parse command-line arguments
-const [, , name, course, phoneNumber, email, address] = process.argv;
-
-// Check if all required arguments are provided
-if (name && course && phoneNumber && email && address) {
-  // Create an instance of the Teacher class with command-line arguments
-  const teacher = new Teacher(name, course, phoneNumber, email, address);
-
-  // Call the generateVCard method
-  teacher.generateVCard();
-} else {
-  console.error('Usage: node teacher.js [name] [course] [phoneNumber] [email] [address]');
-}
+module.exports = Teacher;
