@@ -504,5 +504,4 @@ GiftParser.prototype.answers = function(input){
 }
 
 
-
 module.exports = GiftParser;
