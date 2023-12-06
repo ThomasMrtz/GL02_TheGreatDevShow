@@ -375,17 +375,6 @@ class Question {
         }
     }
 
-    // Find a question with the title
-    static findQuestion(title){
-        for (let i = 0; i < Question.questionBank.length; i++){
-            if (Question.questionBank[i].title == title){
-                return Question.questionBank[i];
-            }
-        }
-        console.log('Question not found');
-        return null;
-    }
-
 }
 
 module.exports = Question;
