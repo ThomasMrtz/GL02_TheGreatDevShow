@@ -38,6 +38,9 @@ class Question {
                 console.log(this.typeQuestion);
                 console.log('');
             }
+            console.log('Question text:');
+            console.log(this.text);
+            console.log('');
 
             // Correct Answers
             if (this.correct_answer != []){
@@ -186,6 +189,137 @@ class Question {
         }
     }
 
+    // Visualise for students, depending on the type of the question
+    visualiseForStudents(){
+
+        if (this.comment != null){
+            console.log('Comment: ');
+            console.log(this.comment);
+            console.log('');
+        }else{
+            console.log('Title:');
+            console.log(this.title);
+            console.log('');
+            if (this.text_formating != null){
+                console.log('Text-formating:');
+                console.log(this.text_formating); 
+                console.log('');
+            }
+            if (this.typeQuestion != null){
+                console.log('Question type:');
+                console.log(this.typeQuestion);
+                console.log('');
+            }
+            console.log('Question text:');
+            console.log(this.text);
+            console.log('');
+
+            switch (this.typeQuestion){
+
+                case TypeQuestion.MATCHING:
+                    let matchingLeftTab = [];
+                    let matchingRightTab = [];
+
+                    for (let i = 0; i < this.correct_answer[0].length; i++) {
+                        let currentString = this.correct_answer[0][i];
+                        let arrowIndex = currentString.indexOf('->');
+
+                        if (arrowIndex !== -1) {
+                            let matchingLeft = currentString.substring(0, arrowIndex).trim();
+                            matchingLeftTab.push(matchingLeft);
+
+                            let matchingRight = currentString.substring(arrowIndex + 2).trim();
+                            matchingRightTab.push(matchingRight);
+                        } else {
+                            matchingLeftTab.push(currentString.trim());
+                        }
+                    }
+
+                    matchingLeftTab = this.shuffleTab(matchingLeftTab);
+                    matchingRightTab = this.shuffleTab(matchingRightTab);
+
+                    for (let i = 0; i < matchingLeftTab.length; i++){
+                        console.log(matchingLeftTab[i] + '                                 ' + matchingRightTab[i]);
+                    }
+                    console.log('');
+                    break;
+                
+                case TypeQuestion.MISSING_WORD:
+                    break;
+                
+                case TypeQuestion.MULTIPLE_CHOICE:
+                    if (Array.isArray(this.correct_answer[0])){
+                        for (let i = 0; i < this.correct_answer.length; i++){
+                            let answers = [];
+                            for (let j = 0; j < this.correct_answer[i].length; j++){
+                                answers.push(this.correct_answer[i][j]);
+                            }
+                            for (let j = 0; j < this.incorrect_answer[i].length; j++){
+                                answers.push(this.incorrect_answer[i][j]);
+                            }
+                            for (let j = 0; j < this.partially_correct_answer[i].length; j++){
+                                answers.push(this.partially_correct_answer[i][j]);
+                            }
+                            answers = this.shuffleTab(answers);
+
+                            console.log('Word ' + i);
+                            for (let j = 0; j < answers.length; j++){
+                                console.log(answers[j]);
+                            }
+                            console.log('');
+                        }
+                    } else {
+                        let answers = [];
+                        for (let i = 0; i < this.correct_answer.length; i++){
+                            answers.push(this.correct_answer[i]);
+                        }
+                        for (let i = 0; i < this.incorrect_answer.length; i++){
+                            answers.push(this.incorrect_answer[i]);
+                        }
+                        for (let i = 0; i < this.partially_correct_answer.length; i++){
+                            answers.push(this.partially_correct_answer[i]);
+                        }
+                        answers = this.shuffleTab(answers);
+                        console.log('Answers:')
+                        for (let i = 0; i < answers.length; i++){
+                            console.log(answers[i]);
+                        }
+                        console.log('');
+                    }
+                    break;
+                
+                case TypeQuestion.NUMERIC:
+                    break;
+                
+                case TypeQuestion.OPEN_QUESTION:
+                    break;
+
+                case TypeQuestion.TRUE_FALSE:
+                    console.log('True or False ?'),
+                    console.log('');
+                    break;
+                
+                default:
+                    break;
+            }
+        }
+    }
+
+    // Used in visualiseForStudents
+    shuffleTab(tab){
+        for (let i = 0; i < 1000; i++){
+            let idx1 = Math.floor(Math.random() * (tab.length));
+            let idx2 = Math.floor(Math.random() * (tab.length));
+
+            let temp = tab[idx1];
+            tab[idx1] = tab[idx2];
+            tab[idx2] = temp;
+
+            return tab;
+            
+        }
+    }
+
     // Check if the userAnswer is a correct answer
     check(userAnswer){
         if (this.correct_answer != []){
@@ -195,7 +329,7 @@ class Question {
                     let isCorrect = false;
                     if (this.correct_answer[i] != []){
                         for (let j = 0; j < this.correct_answer[i].length; j++){
-                            if (this.removeSpaces(answer[i]) == this.removeSpaces(this.correct_answer[i][j])){
+                            if (this.removeUselessChars(answer[i]) == this.removeUselessChars(this.correct_answer[i][j])){
                                 isCorrect = true;
                             }
                         }
@@ -207,7 +341,7 @@ class Question {
                 return true;
             }else{
                 for (let i = 0; i < this.correct_answer.length; i++){
-                    if (this.removeSpaces(userAnswer) == this.removeSpaces(this.correct_answer[i])){
+                    if (this.removeUselessChars(userAnswer) == this.removeUselessChars(this.correct_answer[i])){
                         return true;
                     }
                 }
@@ -219,10 +353,16 @@ class Question {
     }
 
     // This function is used in check(userAnswer)
-    removeSpaces(answer) {
+    removeUselessChars(answer) {
         answer = answer.replace(/\s/g, '');
         answer = answer.replace(/\\n/g, '');
         answer = answer.replace(/\\r/g, '');
+        answer = answer.replace(/\./g, '');
+        answer = answer.replace(/\,/g, '');
+        answer = answer.replace(/\;/g, '');
+        answer = answer.replace(/\!/g, '');
+        answer = answer.replace(/\?/g, '');
+        answer = answer.toLowerCase();
         return answer;
     }
 
@@ -235,6 +375,16 @@ class Question {
         }
     }
 
+    // Find a question with the title
+    static findQuestion(title){
+        for (let i = 0; i < Question.questionBank.length; i++){
+            if (Question.questionBank[i].title == title){
+                return Question.questionBank[i];
+            }
+        }
+        console.log('Question not found');
+        return null;
+    }
 
 }
 
