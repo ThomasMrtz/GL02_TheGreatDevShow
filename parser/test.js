@@ -1,29 +1,45 @@
-const fs = require('fs');
-const GiftParser = require('./giftParser.js');
 const Question = require('./Question.js');
-
-fs.readFile('SujetB_data/U4-p47-Review.gift', 'utf8', function (err,data) {
-    if (err) {
-        return console.log(err);
+const giftParser = require('./giftParser.js')
+class Test {
+    constructor(){
+        this.questions = [];
     }
 
-    let analyzer = new GiftParser(false, false);
-    analyzer.parse(data);
-    
-    if(analyzer.errorCount === 0){
-        console.log("The .gift file is a valid gift file");
-    }else{
-        console.log("The .gift file contains error");
-    }
-    console.log('Datas:');
-    
-    for (let i = 0; i < analyzer.parsedQuestion.length; i++){
-        console.log('New Question:\n');
-        analyzer.parsedQuestion[i].visualise();
+    static TestBank = [];
+
+    visualize(){
+        for(let i=0;i<this.questions.length;i++){
+            console.log(this.questions[i])
+        }
     }
 
-    /*
-    console.log('QuestionBank: ');
-    console.log(Question.questionBank);
-    */
-});
+    add(qst){
+        this.questions.push(qst);
+    }
+
+    remove(){
+
+    }
+
+    equals(autreTest){
+        var boolean = false;
+        for(let i=0;i<this.questions.length;i++){
+            if(this.questions[i].equals(autreTest.questions[i])){
+                boolean = true
+            }
+            else{
+                return false
+                //break
+            }
+            
+        }
+
+        return boolean
+    }
+
+    simulate(){
+
+    }
+}
+
+module.exports = Test;
