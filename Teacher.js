@@ -2,7 +2,7 @@ const fs = require('fs');
 
 class Teacher {
   constructor(name, course, phoneNumber, email, address) {
-    this.fullName = name;
+    this.fullName = String(name).replace(/\s/g, '_');
     this.course = course;
     this.tel = phoneNumber;
     this.email = email;
@@ -20,15 +20,22 @@ ADR:${this.address}
 ORG:${this.course} Teacher
 END:VCARD
 `;
-
-    const filePath = `./${this.fullName.replace(/\s/g, '_')}_vcard.vcf`;
+    const repoPath = `./Test/${this.fullName}`
+    fs.mkdir(repoPath, (err) => {
+        if (err) {
+        console.error(err);
+        } else {
+        // Création réussie !
+        }
+    });   
+    const filePath = `${repoPath}/${this.fullName}_vcard.vcf`;
 
     fs.writeFile(filePath, vCardData, (err) => {
       if (err) {
         console.error('Error writing vCard file:', err);
       } else {
-        console.log(`vCard file created successfully: ${filePath}`);
-      }
+        //création réussie
+    }
     });
   }
 }

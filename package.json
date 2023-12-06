@@ -4,13 +4,16 @@
   "description": "",
   "main": "Cli.js",
   "dependencies": {
-      "@caporal/core": "^2.0.2",
-      "colors": "^1.4.0",
-      "vega": "^5.17.0",
-      "vega-lite": "^4.17.0"
-    },
+    "@caporal/core": "^2.0.7",
+    "colors": "^1.4.0",
+    "prompt-sync": "^4.2.0",
+    "vega": "^5.17.0",
+    "vega-lite": "^4.17.0"
+  },
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node cli.js",  
+    "createTest": "node cli.js createTest"
   },
   "keywords": [],
   "author": "",
