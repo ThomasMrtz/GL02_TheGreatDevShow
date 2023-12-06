@@ -3,7 +3,7 @@
 //import { Question } from './Question';
 
 let Question = require('./Question');
-
+let QuestionBank = require('./QuestionBank');
 const TypeQuestion = require('./TypeQuestion');
 
 // giftParser
@@ -209,7 +209,8 @@ GiftParser.prototype.gift = function(input){
 
 		let q = new Question(null, title, question_text, text_formating, type_question, ca, ia, pca, cf, ife, pcf, gift_format);
 		this.parsedQuestion.push(q);
-		Question.questionBank.push(q);
+		//Question.questionBank.push(q);
+
 		return true;
 	} else if (this.check2Char("//", input)){
 		// Comments
