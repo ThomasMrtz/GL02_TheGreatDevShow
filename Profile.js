@@ -12,14 +12,14 @@ class Profile {
         this.oq = oq;
     }
 
-    // constructor(questions = []) {
+    // createAverageProfile(questionBank) {
     //     this.mc = 0;
     //     this.tf = 0;
     //     this.m = 0;
     //     this.mw = 0;
     //     this.num = 0;
     //     this.oq = 0;
-    //     questions.forEach(question => {
+    //     questionBank.questions.forEach(question => {
     //         switch (question.typeQuestion) {
     //             case TypeQuestion.MULTIPLE_CHOICE:
     //                 this.mc++;
@@ -43,6 +43,10 @@ class Profile {
     //     });
     // }
 
+    // create histogram
+    visualize() {
+
+    }
     // generate a png chart of a profile
     async generateComparisonChart(otherProfile) {
         const dataThisProfile = {
@@ -115,8 +119,6 @@ class Profile {
         const myChart = new ChartJsImage();
         myChart.setConfig(config);
         myChart.setWidth(500).setHeight(300);
-
-        //console.log(myChart.getUrl());
 
         await myChart.toFile('./charts/chart.png');
     }
