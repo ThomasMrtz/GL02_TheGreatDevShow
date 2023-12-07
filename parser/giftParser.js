@@ -1,10 +1,10 @@
-//import { TypeQuestion } from './Question';
+// import { TypeQuestion } from './Question';
 
-//import { Question } from './Question';
+// import { Question } from './Question';
 
-let Question = require('./Question');
-let QuestionBank = require('./QuestionBank');
-const TypeQuestion = require('./TypeQuestion');
+let Question = require('../model/Question.js');
+let QuestionBank = require('../model/QuestionBank.js');
+const TypeQuestion = require('../model/TypeQuestion.js');
 
 // giftParser
 
@@ -212,7 +212,7 @@ GiftParser.prototype.gift = function(input){
 			this.errMsg('Missing title', q);
 		}
 		this.parsedQuestion.push(q);
-		Question.questionBank.push(q);
+		//Question.questionBank.push(q);
 
 		return true;
 	} else if (this.check2Char("//", input)){
