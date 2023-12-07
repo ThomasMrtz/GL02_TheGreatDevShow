@@ -16,10 +16,10 @@ class Question {
         this.gift_format = gf;
     }
 
-    static questionBank = [];
+    // static questionBank = [];
 
     // Print the question object's attributes
-    visualise(){
+    visualise () {
         if (this.comment != null){
             console.log('Comment: ');
             console.log(this.comment);
@@ -190,7 +190,7 @@ class Question {
     }
 
     // Visualise for students, depending on the type of the question
-    visualiseForStudents(){
+    visualiseForStudents() {
 
         if (this.comment != null){
             console.log('Comment: ');
@@ -367,7 +367,7 @@ class Question {
     }
 
     // Returns true if it's the same question, false otherwise 
-    equals(question2){
+    equals(question2) {
         if (this.title = question2.title){
             return true;
         }else{
@@ -375,6 +375,7 @@ class Question {
         }
     }
 
+    /*
     static findQuestionInQuestionBank(title){
         title = Question.removeUselessChars(title);
         for (let i = 0; i < Question.questionBank.length; i++){
@@ -384,6 +385,7 @@ class Question {
         }
         return null;
     }
+    */
 
 }
 

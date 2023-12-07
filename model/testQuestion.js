@@ -1,5 +1,5 @@
 const fs = require('fs').promises; // Using promises version of fs
-const GiftParser = require('./giftParser.js');
+const GiftParser = require('../parser/giftParser.js');
 const QuestionBank = require('./QuestionBank.js');
 
 async function processGiftFiles(filePaths) {
