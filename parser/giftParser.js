@@ -208,8 +208,11 @@ GiftParser.prototype.gift = function(input){
 		question_text = this.removeSpaces(question_text);
 
 		let q = new Question(null, title, question_text, text_formating, type_question, ca, ia, pca, cf, ife, pcf, gift_format);
+		if (title == ''){
+			this.errMsg('Missing title', q);
+		}
 		this.parsedQuestion.push(q);
-		//Question.questionBank.push(q);
+		Question.questionBank.push(q);
 
 		return true;
 	} else if (this.check2Char("//", input)){
