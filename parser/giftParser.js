@@ -283,6 +283,7 @@ GiftParser.prototype.answers = function(input){
 	// Essay
 	if (this.check('}', input)){
 		input = this.reduce(input);
+		Question.nbOpenQuestion++;
 		return { tq: TypeQuestion.OPEN_QUESTION, ca: [], ia: [], pca: [], cf: [], ife: [], pcf: [], in: input};
 	}
 
@@ -343,6 +344,7 @@ GiftParser.prototype.answers = function(input){
 			}
 		}
 		input = this.reduce(input);
+		Question.nbNumeric++;
 		return {tq: TypeQuestion.NUMERIC, ca: correct_answers, ia: incorrect_answers, pca: partially_correct_answer, cf: correct_feedbacks, ife: incorrect_feedbacks, pcf: partially_correct_feedback, in: input};
 	}
 
@@ -369,6 +371,7 @@ GiftParser.prototype.answers = function(input){
 		}
 		correct_answers.push('TRUE');
 		input = this.reduce(input);
+		Question.nbTrueFalse++;
 		return {tq: TypeQuestion.TRUE_FALSE, ca: correct_answers, ia: incorrect_answers, pca: partially_correct_answer, cf: correct_feedbacks, ife: incorrect_feedbacks, pcf: partially_correct_feedback, in: input};
 	}
 	if (input.startsWith('FALSE')){
@@ -394,6 +397,7 @@ GiftParser.prototype.answers = function(input){
 		}
 		correct_answers.push('FALSE');
 		input = this.reduce(input);
+		Question.nbTrueFalse++;
 		return {tq: TypeQuestion.TRUE_FALSE, ca: correct_answers, ia: incorrect_answers, pca: partially_correct_answer, cf: correct_feedbacks, ife: incorrect_feedbacks, pcf: partially_correct_feedback, in: input};
 	}
 	if (this.check2Char('T}', input) || this.check2Char('F}', input)){
@@ -404,6 +408,7 @@ GiftParser.prototype.answers = function(input){
 		}
 		input = this.reduce(input);
 		input = this.reduce(input);
+		Question.nbTrueFalse++;
 		return {tq: TypeQuestion.TRUE_FALSE, ca: correct_answers, ia: incorrect_answers, pca: partially_correct_answer, cf: correct_feedbacks, ife: incorrect_feedbacks, pcf: partially_correct_feedback, in: input};
 	}
 
@@ -496,12 +501,15 @@ GiftParser.prototype.answers = function(input){
 			}
 			if (test){	// True if input is empty (only spaces, \n, \r)
 				type_question = TypeQuestion.MULTIPLE_CHOICE;
+				Question.nbMulipleChoice++;
 			}else{
 				type_question = TypeQuestion.MISSING_WORD;
+				Question.nbMissingWord++;
 			}
 		}
 	} else {
 		type_question = TypeQuestion.MATCHING;
+		Question.nbMatching++;
 	}
 
 	return {tq: type_question, ca: correct_answers, ia: incorrect_answers, pca: partially_correct_answer, cf: correct_feedbacks, ife: incorrect_feedbacks, pcf: partially_correct_feedback, in: input};

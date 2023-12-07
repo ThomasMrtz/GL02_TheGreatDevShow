@@ -17,6 +17,13 @@ class Question {
     }
 
     static questionBank = [];
+    
+    static nbMulipleChoice = 0;
+    static nbTrueFalse = 0;
+    static nbMatching = 0;
+    static nbMissingWord = 0;
+    static nbNumeric = 0;
+    static nbOpenQuestion = 0;
 
     // Print the question object's attributes
     visualise(){
