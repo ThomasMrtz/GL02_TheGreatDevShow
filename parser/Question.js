@@ -329,7 +329,7 @@ class Question {
                     let isCorrect = false;
                     if (this.correct_answer[i] != []){
                         for (let j = 0; j < this.correct_answer[i].length; j++){
-                            if (this.removeUselessChars(answer[i]) == this.removeUselessChars(this.correct_answer[i][j])){
+                            if (Question.removeUselessChars(answer[i]) == Question.removeUselessChars(this.correct_answer[i][j])){
                                 isCorrect = true;
                             }
                         }
@@ -341,7 +341,7 @@ class Question {
                 return true;
             }else{
                 for (let i = 0; i < this.correct_answer.length; i++){
-                    if (this.removeUselessChars(userAnswer) == this.removeUselessChars(this.correct_answer[i])){
+                    if (Question.removeUselessChars(userAnswer) == Question.removeUselessChars(this.correct_answer[i])){
                         return true;
                     }
                 }
@@ -353,7 +353,7 @@ class Question {
     }
 
     // This function is used in check(userAnswer)
-    removeUselessChars(answer) {
+    static removeUselessChars(answer) {
         answer = answer.replace(/\s/g, '');
         answer = answer.replace(/\\n/g, '');
         answer = answer.replace(/\\r/g, '');
@@ -368,11 +368,21 @@ class Question {
 
     // Returns true if it's the same question, false otherwise 
     equals(question2){
-        if (this.title == question2.title){
+        if (this.title = question2.title){
             return true;
         }else{
             return false;
         }
+    }
+
+    static findQuestionInQuestionBank(title){
+        title = Question.removeUselessChars(title);
+        for (let i = 0; i < Question.questionBank.length; i++){
+            if (title = Question.removeUselessChars(Question.questionBank[i].title)){
+                return Question.questionBank[i];
+            }
+        }
+        return null;
     }
 
 }
