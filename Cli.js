@@ -9,7 +9,6 @@ const Question = require('./parser/Question');
 
 
 
-
 program
   .command('createTest', 'create a test by asking for teacher information and questions')
   .action(async () => {
@@ -22,7 +21,7 @@ program
     console.log(`Test created successfully.`);
   })
 
-  .command('addquestion', 'add a question to a test')
+  .command('addQuestion', 'add a question to a test')
   .action(async () => {
     const teachername = prompt('teacher\'s name : ').replace(/\s/g, '_')
     const testname = prompt('test name : ').replace(/\s/g, '_');
@@ -37,6 +36,44 @@ program
   .action(async () => {
     const teachername = prompt('teacher\'s name')
     const testname = prompt('test name:').replace(/\s/g, '_');
+   // count question in gift file 
+   //print if less / print if good / print if more
+  })
+  .command('loadQB', 'load question bank from a gift file')
+  .argument('<file>', 'The file containing questino to add to the question bank')
+  .action(async ({args, option, logger}) => {
+    fs.mkdir('./questionBank', (err) => {
+      if (err) {
+      console.error(err);
+      } else {
+      // Création réussie !
+      }
+      fs.appendFile(`./questionBank/questionBank.gift`, args.file, function (err) {   if (err) throw err;   console.log('Fichier créé !');});
+    })
+  // check Vpf
+	.command('check', 'Check if <file> is a valid gift file')
+	.argument('<file>', 'The file to check with gift parser')
+	.option('-s, --showSymbols', 'log the analyzed symbol at each step', { validator : cli.BOOLEAN, default: false })
+	.option('-t, --showTokenize', 'log the tokenization results', { validator: cli.BOOLEAN, default: false })
+	.action(({args, options, logger}) => {
+		
+		fs.readFile(args.file, 'utf8', function (err,data) {
+			if (err) {
+				return logger.warn(err);
+			}
+	  
+			var analyzer = new VpfParser(options.showTokenize, options.showSymbols);
+			analyzer.parse(data);
+			
+			if(analyzer.errorCount === 0){
+				logger.info("The .gift file is a valid gift file".green);
+			}else{
+				logger.info("The .gift file contains error".red);
+			}
+			
+			logger.debug(analyzer.parsedPOI);
+
+		});
    // count question in gift file 
    //print if less / print if good / print if more
   });
@@ -72,3 +109,4 @@ function saveToFile(data, filename) {
 }
 
 program.run();
+})

@@ -13,7 +13,8 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node cli.js",  
-    "createTest": "node cli.js createTest"
+    "createTest": "node cli.js createTest",
+    "addQuestion": "node cli.js addQuestion"
   },
   "keywords": [],
   "author": "",

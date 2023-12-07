@@ -28,9 +28,26 @@ END:VCARD
         // Création réussie !
         }
     });   
+    const repoPath2 = `./TestBank/${this.fullName}`
+    fs.mkdir(repoPath2, (err) => {
+        if (err) {
+        console.error(err);
+        } else {
+        // Création réussie !
+        }
+    }); 
     const filePath = `${repoPath}/${this.fullName}_vcard.vcf`;
 
     fs.writeFile(filePath, vCardData, (err) => {
+      if (err) {
+        console.error('Error writing vCard file:', err);
+      } else {
+        //création réussie
+    }
+    });
+    const filePath2 = `${repoPath2}/${this.fullName}_vcard.vcf`;
+
+    fs.writeFile(filePath2, vCardData, (err) => {
       if (err) {
         console.error('Error writing vCard file:', err);
       } else {
