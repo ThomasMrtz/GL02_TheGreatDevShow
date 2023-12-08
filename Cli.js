@@ -1,8 +1,9 @@
-const Teacher = require('./teacher');
+const Teacher = require('./model/teacher');
 const GiftParser = require('./parser/giftParser');
 const { program } = require('@caporal/core');
 const prompt = require('prompt-sync')();
 const fs = require('fs').promises; // Use promises version of fs
+const test = require('./model/Test')
 
 program
   .command('createTest', 'create a test by asking for teacher information and questions')
@@ -48,10 +49,53 @@ program
     }
   })
 
+  .command('rmQuestion', 'remove a question from a test')
+  .action(async () => {
+    const teachername = prompt('teacher\'s name : ').replace(/\s/g, '_');
+    const testname = prompt('test name : ').replace(/\s/g, '_');
+    try {
+      const data= await parseData(`./Test/${teachername}/${testname}.gift`);
+      for(let i=0;i<data.length;i++){
+        console.log("question "+i+" : ");
+        data[i].visualise();
+        console.log('\n \n');
+      }
+      const idx=prompt("enter the index of the question you want to remove")
+      data.splice(idx, 1);
+      await fs.rename(`./Test/${teachername}/${testname}.gift`, `./Test/${teachername}/${testname}.gift`)  
+    }
+     catch (error) {
+      console.error('Error adding question:', error.message);
+    }
+  })
+
+  .command('takeTest', 'simulate a test from a student point of view')
+  .action(async () => {
+    const teachername = prompt('teacher\'s name : ').replace(/\s/g, '_');
+    const testname = prompt('test name : ').replace(/\s/g, '_');
+      simulate(`./TestBank/${teachername}/${testname}.gift`);
+  })
+
   .command('read', 'reads the questionBank')
   .action(async () => {
     try {
       const data= await parseData(`./questionBank/questionBank.gift`);
+      for(let i=0;i<data.length;i++){
+        console.log("question "+i+" : ");
+        data[i].visualise();
+        console.log('\n \n');
+      }
+    } catch (error) {
+      console.error('Error :', error.message);
+    }
+  })
+
+  .command('readTest', 'reads a test file')
+  .action(async () => {
+    const teachername = prompt('teacher\'s name : ').replace(/\s/g, '_');
+    const testname = prompt('test name : ').replace(/\s/g, '_');
+    try {
+      const data= await parseData(`./Test/${teachername}/${testname}.gift`);
       for(let i=0;i<data.length;i++){
         console.log("question "+i+" : ");
         data[i].visualise();
@@ -85,7 +129,7 @@ program
         }
         console.log("multiple identic questions. file corrected. please retry");
       }
-      else if (data.length>=15&&data.length<=20&&isEveryQuestionUnique){
+      else if (data.length>15&&data.length<=20&&isEveryQuestionUnique){
         await fs.rename(`./Test/${teachername}/${testname}.gift`, `./TestBank/${teachername}/${testname}.gift`)
       }
       else{console.log(`this test has ${data.length} questions, a test has to have between 15 and 20 questions`);} 
@@ -140,6 +184,76 @@ async function getQuestionsFromTeacher() {
   }
 }
 
+async function simulate(testPath) {
+  var responses = [[]];
+  try{
+  const questions= await parseData(testPath);
+
+  for(let i=0; i<questions.length;i++){
+      questions[i].visualiseForStudents();
+      console.log("Question n°", i);
+      var qtype = questions[i].getTypeQuestion();
+      console.log(qtype)
+      let resp;
+
+      switch(qtype){
+      case "Multiple Choice":
+          resp = prompt("Type the word : ");
+          responses[i][0] = resp;
+          break;
+      case "True-False":
+          resp = prompt("Type true or false : ");
+          responses[i][0] = resp;
+          break;
+      case "Matching":
+          responses[i]=[];
+          for(let j=0;j<questions[i].correct_answer.length;j++){
+              resp = prompt("Type the phrase and his match with '->' between")
+              responses[i][j] = resp;  
+          }
+          break;
+      case "Missing-Word":
+          responses[i]=[];
+          for(let j=0;j<questions[i].correct_answer.length;j++){
+              resp = prompt("Type the missing word : ")
+              responses[i][j] = resp;  
+          }
+          break;
+      case "Numeric":
+          resp = prompt("Type the number : ")
+          responses[i][0] = resp;
+          break;
+      case "Open-Question":
+          resp = prompt("Type a relevant sentence : ")
+          responses[i][0] = resp;
+          break;
+      default:
+       console.log("rien");
+          break;
+  }
+  }
+
+  
+  for(let i=0;i<responses.length;i++){
+      console.log(responses[i]);
+      console.log("your response is "+questions[i].check(responses[i]));
+      console.log('\n');
+
+  }
+
+   /*
+  if question1.check(answer1) == false {
+      console.log(The answer for the question + idx + is ...);
+      noErr++;
+  }
+  
+  if (noErr) == 0 then console.log("All the answers were correct!");
+  */
+}
+catch(error){
+  console.error('Error :', error.message);
+}
+}
 
 async function saveToFile(data, filename) {
   await fs.writeFile(filename, data);
