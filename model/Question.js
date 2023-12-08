@@ -333,6 +333,37 @@ class Question {
                 userAnswer = '—';
             }
         }
+
+        if (this.typeQuestion == TypeQuestion.MATCHING){
+            if (userAnswer.length != this.correct_answer.length){
+                return false;
+            }
+            for (let i = 0; i < userAnswer.length; i++){
+                let test = false;
+                for (let j = 0; j < this.correct_answer.length; j++){
+                    let answerToCheck = userAnswer[i];
+                    answerToCheck = Question.removeUselessChars(answerToCheck);
+                    answerToCheck = answerToCheck.replace(/\-/g, '');
+                    answerToCheck = answerToCheck.replace(/\>/g, '');
+                    answerToCheck = answerToCheck.replace(/\—/g, '');
+
+                    let correctAnswer = this.correct_answer[j];
+                    correctAnswer = Question.removeUselessChars(correctAnswer);
+                    correctAnswer = correctAnswer.replace(/\-/g, '');
+                    correctAnswer = correctAnswerk.replace(/\>/g, '');
+                    correctAnswer = correctAnswer.replace(/\—/g, '');
+
+                    if (answerToCheck == correctAnswer){
+                        test = true;
+                    }
+                }
+                if (!test){
+                    return false;
+                }
+            }
+            return true;
+        }
+
         if (this.correct_answer != []){
 
             if (Array.isArray(this.correct_answer[0])){
