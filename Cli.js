@@ -12,6 +12,8 @@ program
     const testname = prompt('test name:').replace(/\s/g, '_');
     try {
       await fs.mkdir('./TestBank', { recursive: true });
+      await fs.mkdir('./Test', { recursive: true });
+
     }
     catch(error){
       console.error('Error :', error.message);
