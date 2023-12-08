@@ -9,12 +9,13 @@
     "chart.js": "^4.4.1",
     "chartjs-to-image": "^1.2.2",
     "colors": "^1.4.0",
+    "prompt-sync": "^4.2.0",
     "vega": "^5.17.0",
     "vega-lite": "^4.17.0"
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node cli.js",  
+    "start": "node cli.js",
     "createTest": "node cli.js createTest",
     "addQuestion": "node cli.js addQuestion",
     "loadQB": "node cli.js loadQB <file>",

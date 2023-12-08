@@ -557,6 +557,10 @@ class Question {
         }
     }
 
+    getTypeQuestion(){
+        return this.typeQuestion;
+    }
+
     /*
     static findQuestionInQuestionBank(title){
         title = Question.removeUselessChars(title);
