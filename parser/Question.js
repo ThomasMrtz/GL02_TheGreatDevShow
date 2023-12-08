@@ -375,6 +375,10 @@ class Question {
         }
     }
 
+    getTypeQuestion(){
+        return this.typeQuestion;
+    }
+
 }
 
 module.exports = Question;

@@ -11,7 +11,7 @@ class QuestionBank{
     }
 
     remove(question){
-        questions.remove(question);
+        this.questions.remove(question);
     }
 
     addMore(questions){
