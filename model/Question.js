@@ -342,7 +342,78 @@ class Question {
                                     }
                                     break;
                                 case TypeQuestion.NUMERIC:
-
+                                    if (this.correct_answer[i][j].includes(':')){
+                                        let answer = removeUselessChars(this.correct_answer[i][j]);
+                                        if (answer[0] == '%'){
+                                            answer = answer.substring(1);
+                                            while (answer[0] != '%'){
+                                                answer = answer.substring(1);
+                                            }
+                                            answer = answer.substring(1);
+                                        }
+                                        let correctNumber = '';
+                                        let range = '';
+                                        while (answer[0] != ":"){
+                                            correctNumber = correctNumber + answer[0];
+                                            answer = answer.substring(1);
+                                        }
+                                        answer = answer.substring(1);
+                                        while (answer.length > 0){
+                                            range = range + answer[0];
+                                            answer = answer.substring(1);
+                                        }
+                                        correctNumber = parseFloat(correctNumber);
+                                        range = parseFloat(range);
+                                        let userAnswerInt = parseFloat(Question.removeUselessChars(userAnswer[i]));
+                                        if (userAnswerInt >= correctNumber - range && userAnswerInt <= correctNumber + range){
+                                            isCorrect = true;
+                                        }
+                                    } else {
+                                        let answer = this.correct_answer[i][j];
+                                        answer = answer.replace(/\s/g, '');
+                                        answer = answer.replace(/\\n/g, '');
+                                        answer = answer.replace(/\\r/g, '');
+                                        answer = answer.replace(/\,/g, '');
+                                        answer = answer.replace(/\;/g, '');
+                                        answer = answer.replace(/\!/g, '');
+                                        answer = answer.replace(/\?/g, '');
+                                        answer = answer.toLowerCase();
+                                        if (answer[0] == '%'){
+                                            answer = answer.substring(1);
+                                            while (answer[0] != '%'){
+                                                answer = answer.substring(1);
+                                            }
+                                            answer = answer.substring(1);
+                                        }
+                                        let minimumNumber = '';
+                                        let maximumNumber = '';
+                                        let test = false;
+                                        while (answer.length > 0){
+                                            if (answer[0] == '.' && answer[1] == '.'){
+                                                test = true;
+                                                answer = answer.substring(1);
+                                                answer = answer.substring(1);
+                                            } else if (!test){
+                                                minimumNumber = minimumNumber + answer[0];
+                                                answer = answer.substring(1);
+                                            } else if (test){
+                                                maximumNumber = maximumNumber + answer[0];
+                                                answer = answer.substring(1);
+                                            }
+                                        }
+                                        if (maximumNumber == ''){
+                                            if (minimumNumber == Question.removeUselessChars(userAnswer[i])){
+                                                isCorrect = true;
+                                            }
+                                        } else {
+                                            minimumNumber = parseFloat(minimumNumber);
+                                            maximumNumber = parseFloat(maximumNumber);
+                                            let userAnswerInt = Question.removeUselessChars(parseFloat(userAnswer[i]));
+                                            if (userAnswerInt >= minimumNumber && userAnswerInt <= maximumNumber){
+                                                isCorrect = true;
+                                            }
+                                        }
+                                    }
                                 default:
                                     if (Question.removeUselessChars(userAnswer[i]) == Question.removeUselessChars(this.correct_answer[i][j])){
                                         isCorrect = true;
@@ -358,8 +429,96 @@ class Question {
                 return true;
             }else{
                 for (let i = 0; i < this.correct_answer.length; i++){
-                    if (Question.removeUselessChars(userAnswer) == Question.removeUselessChars(this.correct_answer[i])){
-                        return true;
+                    switch (this.typeQuestion){
+                        case TypeQuestion.TRUE_FALSE:
+                            if (this.correct_answer[i] == 'T' || this.correct_answer[i] == 'TRUE'){
+                                if (Question.removeUselessChars(userAnswer) == 'T' || Question.removeUselessChars(userAnswer) == 'TRUE'){
+                                    return true;
+                                }
+                            }else{
+                                if (Question.removeUselessChars(userAnswer) == 'F' || Question.removeUselessChars(userAnswer) == 'FALSE'){
+                                    return true;
+                                }
+                            }
+                            break;
+                        case TypeQuestion.NUMERIC:
+                            if (this.correct_answer[i].includes(':')){
+                                let answer = removeUselessChars(this.correct_answer[i]);
+                                if (answer[0] == '%'){
+                                    answer = answer.substring(1);
+                                    while (answer[0] != '%'){
+                                        answer = answer.substring(1);
+                                    }
+                                    answer = answer.substring(1);
+                                }
+                                let correctNumber = '';
+                                let range = '';
+                                while (answer[0] != ":"){
+                                    correctNumber = correctNumber + answer[0];
+                                    answer = answer.substring(1);
+                                }
+                                answer = answer.substring(1);
+                                while (answer.length > 0){
+                                    range = range + answer[0];
+                                    answer = answer.substring(1);
+                                }
+                                correctNumber = parseFloat(correctNumber);
+                                range = parseFloat(range);
+                                let userAnswerInt = parseFloat(Question.removeUselessChars(userAnswer));
+                                if (userAnswerInt >= correctNumber - range && userAnswerInt <= correctNumber + range){
+                                    return true;
+                                }
+                            } else {
+                                let answer = this.correct_answer[i];
+                                answer = answer.replace(/\s/g, '');
+                                answer = answer.replace(/\\n/g, '');
+                                answer = answer.replace(/\\r/g, '');
+                                answer = answer.replace(/\,/g, '');
+                                answer = answer.replace(/\;/g, '');
+                                answer = answer.replace(/\!/g, '');
+                                answer = answer.replace(/\?/g, '');
+                                answer = answer.toLowerCase();
+                                if (answer[0] == '%'){
+                                    answer = answer.substring(1);
+                                    while (answer[0] != '%'){
+                                        answer = answer.substring(1);
+                                    }
+                                    answer = answer.substring(1);
+                                }
+                                let minimumNumber = '';
+                                let maximumNumber = '';
+                                let test = false;
+                                while (answer.length > 0){
+                                    if (answer[0] == '.' && answer[1] == '.'){
+                                        test = true;
+                                        answer = answer.substring(1);
+                                        answer = answer.substring(1);
+                                    } else if (!test){
+                                        minimumNumber = minimumNumber + answer[0];
+                                        answer = answer.substring(1);
+                                    } else if (test){
+                                        maximumNumber = maximumNumber + answer[0];
+                                        answer = answer.substring(1);
+                                    }
+                                }
+                                if (maximumNumber == ''){
+                                    if (minimumNumber == Question.removeUselessChars(userAnswer)){
+                                        return true;
+                                    }
+                                } else {
+                                    minimumNumber = parseFloat(minimumNumber);
+                                    maximumNumber = parseFloat(maximumNumber);
+                                    let userAnswerInt = Question.removeUselessChars(parseFloat(userAnswer));
+                                    if (userAnswerInt >= minimumNumber && userAnswerInt <= maximumNumber){
+                                        return true;
+                                    }
+                                }
+                            }
+                        default:
+                            if (Question.removeUselessChars(userAnswer) == Question.removeUselessChars(this.correct_answer[i])){
+                                return true;
+                            }
+                            break;
                     }
                 }
                 return false;
