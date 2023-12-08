@@ -9,7 +9,12 @@ program
   .action(async () => {
     const teacher = await getTeacherInfo();
     const testname = prompt('test name:').replace(/\s/g, '_');
-
+    try {
+      await fs.mkdir('./TestBank', { recursive: true });
+    }
+    catch(error){
+      console.error('Error :', error.message);
+    }
     teacher.generateVCard();
     console.log('vCard created successfully.');
 
@@ -61,7 +66,6 @@ program
   .action(async () => {
     const teachername = prompt('teacher\'s name : ').replace(/\s/g, '_');
     const testname = prompt('test name :').replace(/\s/g, '_');
-
     try {
       const data = await parseData(`./Test/${teachername}/${testname}.gift`);
       let isEveryQuestionUnique=true;
