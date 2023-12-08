@@ -35,6 +35,7 @@ async function processGiftFiles(filePaths) {
 // Example usage: Replace this array with your array of file paths
 const fileArray = [
     //'../parser/SujetB_data/EM-U4-p32_33-Review.gift',
+    //'../parser/SujetB_data/EM-U42-Ultimate.gift',
     '../parser/SujetB_data/U4-p47-Review.gift',
     '../parser/SujetB_data/EM-U5-p34-Gra-Expressions_of_quantity.gift'
     // 'SujetB_data/EM-U5-p34-Voc.gift',
@@ -56,7 +57,8 @@ async function runProcess() {
     testo.add(qb.questions[0]);
     testo.add(qb.questions[1]);
     testo.add(qb.questions[2]);
-    testo.add(qb.questions[3]); // Adjust this part as needed
+    testo.add(qb.questions[3]);
+     // Adjust this part as needed
     // Add more questions as needed
     // Visualize the questions in the Test
     console.log("---------------------Visualize------------------")
