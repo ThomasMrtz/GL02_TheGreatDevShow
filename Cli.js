@@ -11,7 +11,7 @@ const path = require('path');
 const DATA_DIRECTORY = './parser/SujetB_data/';
 
 program
-  .command('createTest', 'create a test by asking for teacher information and questions')
+  .command('createTest', 'Create an empty test and stores teacher\'s information')
   .action(async () => {
     const teacher = await getTeacherInfo();
     const testname = prompt('test name:').replace(/\s/g, '_');
@@ -32,7 +32,7 @@ program
     }
   })
 
-  .command('addQuestion', 'add a question to a test')
+  .command('addQuestion', 'Add a question to a test')
   .action(async () => {
     const teachername = prompt('teacher\'s name : ').replace(/\s/g, '_');
     const testname = prompt('test name : ').replace(/\s/g, '_');
@@ -54,7 +54,7 @@ program
     }
   })
 
-  .command('read', 'reads the questionBank')
+  .command('read', 'Reads the question bank')
   .action(async () => {
     try {
       const data= await parseData(`./questionBank/questionBank.gift`);
@@ -68,7 +68,7 @@ program
     }
   })
 
-  .command('finish', 'verify if a test has between 15 and 20 questions')
+  .command('finish', 'Verify if a test has between 15 and 20 unique questions')
   .action(async () => {
     const teachername = prompt('teacher\'s name : ').replace(/\s/g, '_');
     const testname = prompt('test name :').replace(/\s/g, '_');
@@ -115,33 +115,14 @@ program
     }
   })
 
-  .command('displayFileNames', 'Displays a list of the files which contain the GIFT data')
-  .action(async ({ }) => {
-    try {
-      // use readdir method to read the files of the directory
-      const files = await fs.readdir(DATA_DIRECTORY);
-  
-      files.forEach(async file => {
-        // get the details of the file
-        const fileDetails = await fs.lstat(path.resolve(DATA_DIRECTORY, file));
-  
-        // check if the file is a directory
-        if (fileDetails.isDirectory()) {
-          console.log('Directory: ' + file);
-        } else {
-          console.log('File: ' + file);
-        }
-      });
-    } catch (err) {
-      console.error('Error reading directory:', err);
-    }
-  })
+  .command('displayFileNames', 'Display the list of all GIFT files')
+  .action(displayFileNames(DATA_DIRECTORY))
 
-  .command('visualizeProfile', 'Generates a histogram based on a GIFT file')
+
+  .command('visualizeProfile', 'Generate a profile histogram based on a GIFT file')
   .argument('[files...]', 'The files containing the questions to analyze')
   .action(async ({ args, logger }) => {
     const qb = new QuestionBank([]);
-    await displayGIFTFileNames(DATA_DIRECTORY);
     
     try {
       // Use Promise.all to wait for all file processing tasks to complete
@@ -161,7 +142,14 @@ program
     } catch (err) {
       console.error('Error during visualizing:', err);
     }
-  });
+  })
+
+  .command('compare', 'Compare profile of a test made by a professor with the profile of another test or question bank')
+  .action(async () => {
+    const teacherName = prompt('Enter teacher name: ');
+    displayTeacherTest()
+    const testname = prompt('Test name:').replace(/\s/g, '_');
+  })
 
 async function getTeacherInfo() {
   console.log('Enter teacher information:');
@@ -212,8 +200,26 @@ async function parseData(filePath) {
   return analyzer.parsedQuestion;
 }
 
+async function displayFileNames(directory){
+  try {
+    // use readdir method to read the files of the directory
+    const files = await fs.readdir(directory);
 
+    files.forEach(async file => {
+      // get the details of the file
+      const fileDetails = await fs.lstat(path.resolve(directory, file));
 
+      // check if the file is a directory
+      if (fileDetails.isDirectory()) {
+        console.log('Directory: ' + file);
+      } else {
+        console.log('File: ' + file);
+      }
+    });
+  } catch (err) {
+    console.error('Error reading directory:', err);
+  }
+}
 
 async function processGiftFile(fileName) {
   try {
