@@ -122,50 +122,71 @@ class Test {
 
     simulate() {
         var cpt = 0;
-        var responses = [[]];
+        var responses = [[]];    
 
-        for(let i=0; i<this.questions.length;i++){
-            this.questions[i].visualiseForStudents();
+        for(let a=0; a<this.questions.length;a++){
+            this.questions[a].visualiseForStudents();
         }
 
+        for (let b = 0; b < this.questions.length; b++) {
+            if(this.questions[b].typeQuestion == null){
+                this.questions.splice(b, 1);
+            }
+        }
+        
+        for (let c = 0; c < this.questions.length-1; c++) {
+            responses.push([]);
+        }
+
+        var alreadyAws = [];
+        console.log(this.questions.length, " questions ")
         while(cpt < this.questions.length){
             
-            var a = prompt("Which question you want to respond to ? (Type a number) : ");
-            console.log("Question n°", a);
-        
-            var qtype = this.questions[a].getTypeQuestion();
+            do{
+            console.log("You can't respond twice to the same question !")
+            var nb = prompt("Which question you want to respond to ? (Type a number) : ");
+            }
+            while(alreadyAws.includes(nb));
+            console.log(typeof(nb))
+            alreadyAws.push(nb)
+            console.log("Question n°", nb);
+            
+            var qtype = this.questions[nb].getTypeQuestion();
             console.log(qtype)
+            console.log("-----------------")
+            console.log(this.questions[nb])
             let resp;
 
             switch(qtype){
             case "Multiple Choice":
-                resp = prompt("Type the word : ");
-                responses[a][0] = resp;
+                resp = prompt("Type your answer : ");
+                responses[nb][0] = resp;
                 break;
             case "True-False":
-                resp = prompt("Type true or false : ");
-                responses[a][0] = resp;
+                resp = prompt("Type true or false (t or f) : ");
+                responses[nb][0] = resp;
                 break;
             case "Matching":
-                for(let i=0;i<this.questions[a].correct_answer.length;i++){
-                    resp = prompt("Type the phrase and his match with '->' between")
-                    responses[a][i] = resp;  
+                for(let d=0;d<this.questions[nb].correct_answer[0].length;d++){
+                    console.log("Type the phrase and his match with '->' between :")
+                    resp = prompt("rep : ")
+                    responses[nb][d] = resp;  
                 }
                 break;
             case "Missing-Word":
-                //responses[a] = resp;
-                for(let i=0;i<this.questions[a].correct_answer.length;i++){
+                for(let e=0;e<this.questions[nb].correct_answer.length;e++){
+                    console.log(this.questions[nb].correct_answer)
                     resp = prompt("Type the missing word : ")
-                    responses[a][i] = resp;  
+                    responses[nb][e] = resp;  
                 }
                 break;
             case "Numeric":
                 resp = prompt("Type the number : ")
-                responses[a][0] = resp;
+                responses[nb][0] = resp;
                 break;
             case "Open-Question":
                 resp = prompt("Type a relevant sentence : ")
-                responses[a][0] = resp;
+                responses[nb][0] = resp;
                 break;
             default:
              console.log("rien");
@@ -177,9 +198,11 @@ class Test {
 
         }
         
-        for(let i=0;i<responses.length;i++){
+        for(let n=0;n<responses.length;n++){
             console.log(responses)
-            console.log(this.questions[i].check(responses[i]))
+            console.log(n)
+            console.log(this.questions[n].check(responses[n]))
+
         }
 
          /*

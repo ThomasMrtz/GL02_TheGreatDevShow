@@ -322,6 +322,17 @@ class Question {
 
     // Check if the userAnswer is a correct answer
     check(userAnswer){
+        if (Array.isArray(userAnswer)){
+            for (let i = 0; i < userAnswer.length; i++){
+                if (userAnswer[i] == '-'){
+                    userAnswer[i] = '—';
+                }
+            }
+        }else{
+            if (userAnswer == '-'){
+                userAnswer = '—';
+            }
+        }
         if (this.correct_answer != []){
 
             if (Array.isArray(this.correct_answer[0])){
