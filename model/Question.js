@@ -418,6 +418,9 @@ class Question {
                                     if (Question.removeUselessChars(userAnswer[i]) == Question.removeUselessChars(this.correct_answer[i][j])){
                                         isCorrect = true;
                                     }
+                                    if (Question.removeUselessChars(userAnswer[i]) == Question.removeUselessChars(this.partially_correct_answer[i][j])){
+                                        isCorrect = true;
+                                    }
                                     break;
                             }
                         }
@@ -516,6 +519,9 @@ class Question {
                             }
                         default:
                             if (Question.removeUselessChars(userAnswer) == Question.removeUselessChars(this.correct_answer[i])){
+                                return true;
+                            }
+                            if (Question.removeUselessChars(userAnswer) == Question.removeUselessChars(this.partially_correct_answer[i])){
                                 return true;
                             }
                             break;
