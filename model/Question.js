@@ -16,10 +16,10 @@ class Question {
         this.gift_format = gf;
     }
 
-    static questionBank = [];
+    // static questionBank = [];
 
     // Print the question object's attributes
-    visualise(){
+    visualise () {
         if (this.comment != null){
             console.log('Comment: ');
             console.log(this.comment);
@@ -190,7 +190,7 @@ class Question {
     }
 
     // Visualise for students, depending on the type of the question
-    visualiseForStudents(){
+    visualiseForStudents() {
 
         if (this.comment != null){
             console.log('Comment: ');
@@ -329,8 +329,96 @@ class Question {
                     let isCorrect = false;
                     if (this.correct_answer[i] != []){
                         for (let j = 0; j < this.correct_answer[i].length; j++){
-                            if (this.removeUselessChars(answer[i]) == this.removeUselessChars(this.correct_answer[i][j])){
-                                isCorrect = true;
+                            switch (this.typeQuestion){
+                                case TypeQuestion.TRUE_FALSE:
+                                    if (this.correct_answer[i][j] == 'T' || this.correct_answer[i][j] == 'TRUE'){
+                                        if (Question.removeUselessChars(userAnswer[i]) == 'T' || Question.removeUselessChars(userAnswer[i]) == 'TRUE'){
+                                            isCorrect = true;
+                                        }
+                                    }else{
+                                        if (Question.removeUselessChars(userAnswer[i]) == 'F' || Question.removeUselessChars(userAnswer[i]) == 'FALSE'){
+                                            isCorrect = true;
+                                        }
+                                    }
+                                    break;
+                                case TypeQuestion.NUMERIC:
+                                    if (this.correct_answer[i][j].includes(':')){
+                                        let answer = removeUselessChars(this.correct_answer[i][j]);
+                                        if (answer[0] == '%'){
+                                            answer = answer.substring(1);
+                                            while (answer[0] != '%'){
+                                                answer = answer.substring(1);
+                                            }
+                                            answer = answer.substring(1);
+                                        }
+                                        let correctNumber = '';
+                                        let range = '';
+                                        while (answer[0] != ":"){
+                                            correctNumber = correctNumber + answer[0];
+                                            answer = answer.substring(1);
+                                        }
+                                        answer = answer.substring(1);
+                                        while (answer.length > 0){
+                                            range = range + answer[0];
+                                            answer = answer.substring(1);
+                                        }
+                                        correctNumber = parseFloat(correctNumber);
+                                        range = parseFloat(range);
+                                        let userAnswerInt = parseFloat(Question.removeUselessChars(userAnswer[i]));
+                                        if (userAnswerInt >= correctNumber - range && userAnswerInt <= correctNumber + range){
+                                            isCorrect = true;
+                                        }
+                                    } else {
+                                        let answer = this.correct_answer[i][j];
+                                        answer = answer.replace(/\s/g, '');
+                                        answer = answer.replace(/\\n/g, '');
+                                        answer = answer.replace(/\\r/g, '');
+                                        answer = answer.replace(/\,/g, '');
+                                        answer = answer.replace(/\;/g, '');
+                                        answer = answer.replace(/\!/g, '');
+                                        answer = answer.replace(/\?/g, '');
+                                        answer = answer.toLowerCase();
+                                        if (answer[0] == '%'){
+                                            answer = answer.substring(1);
+                                            while (answer[0] != '%'){
+                                                answer = answer.substring(1);
+                                            }
+                                            answer = answer.substring(1);
+                                        }
+                                        let minimumNumber = '';
+                                        let maximumNumber = '';
+                                        let test = false;
+                                        while (answer.length > 0){
+                                            if (answer[0] == '.' && answer[1] == '.'){
+                                                test = true;
+                                                answer = answer.substring(1);
+                                                answer = answer.substring(1);
+                                            } else if (!test){
+                                                minimumNumber = minimumNumber + answer[0];
+                                                answer = answer.substring(1);
+                                            } else if (test){
+                                                maximumNumber = maximumNumber + answer[0];
+                                                answer = answer.substring(1);
+                                            }
+                                        }
+                                        if (maximumNumber == ''){
+                                            if (minimumNumber == Question.removeUselessChars(userAnswer[i])){
+                                                isCorrect = true;
+                                            }
+                                        } else {
+                                            minimumNumber = parseFloat(minimumNumber);
+                                            maximumNumber = parseFloat(maximumNumber);
+                                            let userAnswerInt = Question.removeUselessChars(parseFloat(userAnswer[i]));
+                                            if (userAnswerInt >= minimumNumber && userAnswerInt <= maximumNumber){
+                                                isCorrect = true;
+                                            }
+                                        }
+                                    }
+                                default:
+                                    if (Question.removeUselessChars(userAnswer[i]) == Question.removeUselessChars(this.correct_answer[i][j])){
+                                        isCorrect = true;
+                                    }
+                                    break;
                             }
                         }
                     }
@@ -341,8 +429,96 @@ class Question {
                 return true;
             }else{
                 for (let i = 0; i < this.correct_answer.length; i++){
-                    if (this.removeUselessChars(userAnswer) == this.removeUselessChars(this.correct_answer[i])){
-                        return true;
+                    switch (this.typeQuestion){
+                        case TypeQuestion.TRUE_FALSE:
+                            if (this.correct_answer[i] == 'T' || this.correct_answer[i] == 'TRUE'){
+                                if (Question.removeUselessChars(userAnswer) == 'T' || Question.removeUselessChars(userAnswer) == 'TRUE'){
+                                    return true;
+                                }
+                            }else{
+                                if (Question.removeUselessChars(userAnswer) == 'F' || Question.removeUselessChars(userAnswer) == 'FALSE'){
+                                    return true;
+                                }
+                            }
+                            break;
+                        case TypeQuestion.NUMERIC:
+                            if (this.correct_answer[i].includes(':')){
+                                let answer = removeUselessChars(this.correct_answer[i]);
+                                if (answer[0] == '%'){
+                                    answer = answer.substring(1);
+                                    while (answer[0] != '%'){
+                                        answer = answer.substring(1);
+                                    }
+                                    answer = answer.substring(1);
+                                }
+                                let correctNumber = '';
+                                let range = '';
+                                while (answer[0] != ":"){
+                                    correctNumber = correctNumber + answer[0];
+                                    answer = answer.substring(1);
+                                }
+                                answer = answer.substring(1);
+                                while (answer.length > 0){
+                                    range = range + answer[0];
+                                    answer = answer.substring(1);
+                                }
+                                correctNumber = parseFloat(correctNumber);
+                                range = parseFloat(range);
+                                let userAnswerInt = parseFloat(Question.removeUselessChars(userAnswer));
+                                if (userAnswerInt >= correctNumber - range && userAnswerInt <= correctNumber + range){
+                                    return true;
+                                }
+                            } else {
+                                let answer = this.correct_answer[i];
+                                answer = answer.replace(/\s/g, '');
+                                answer = answer.replace(/\\n/g, '');
+                                answer = answer.replace(/\\r/g, '');
+                                answer = answer.replace(/\,/g, '');
+                                answer = answer.replace(/\;/g, '');
+                                answer = answer.replace(/\!/g, '');
+                                answer = answer.replace(/\?/g, '');
+                                answer = answer.toLowerCase();
+                                if (answer[0] == '%'){
+                                    answer = answer.substring(1);
+                                    while (answer[0] != '%'){
+                                        answer = answer.substring(1);
+                                    }
+                                    answer = answer.substring(1);
+                                }
+                                let minimumNumber = '';
+                                let maximumNumber = '';
+                                let test = false;
+                                while (answer.length > 0){
+                                    if (answer[0] == '.' && answer[1] == '.'){
+                                        test = true;
+                                        answer = answer.substring(1);
+                                        answer = answer.substring(1);
+                                    } else if (!test){
+                                        minimumNumber = minimumNumber + answer[0];
+                                        answer = answer.substring(1);
+                                    } else if (test){
+                                        maximumNumber = maximumNumber + answer[0];
+                                        answer = answer.substring(1);
+                                    }
+                                }
+                                if (maximumNumber == ''){
+                                    if (minimumNumber == Question.removeUselessChars(userAnswer)){
+                                        return true;
+                                    }
+                                } else {
+                                    minimumNumber = parseFloat(minimumNumber);
+                                    maximumNumber = parseFloat(maximumNumber);
+                                    let userAnswerInt = Question.removeUselessChars(parseFloat(userAnswer));
+                                    if (userAnswerInt >= minimumNumber && userAnswerInt <= maximumNumber){
+                                        return true;
+                                    }
+                                }
+                            }
+                        default:
+                            if (Question.removeUselessChars(userAnswer) == Question.removeUselessChars(this.correct_answer[i])){
+                                return true;
+                            }
+                            break;
                     }
                 }
                 return false;
@@ -353,7 +529,7 @@ class Question {
     }
 
     // This function is used in check(userAnswer)
-    removeUselessChars(answer) {
+    static removeUselessChars(answer) {
         answer = answer.replace(/\s/g, '');
         answer = answer.replace(/\\n/g, '');
         answer = answer.replace(/\\r/g, '');
@@ -367,17 +543,25 @@ class Question {
     }
 
     // Returns true if it's the same question, false otherwise 
-    equals(question2){
-        if (this.title == question2.title){
+    equals(question2) {
+        if (this.title = question2.title){
             return true;
         }else{
             return false;
         }
     }
 
-    getTypeQuestion(){
-        return this.typeQuestion;
+    /*
+    static findQuestionInQuestionBank(title){
+        title = Question.removeUselessChars(title);
+        for (let i = 0; i < Question.questionBank.length; i++){
+            if (title = Question.removeUselessChars(Question.questionBank[i].title)){
+                return Question.questionBank[i];
+            }
+        }
+        return null;
     }
+    */
 
 }
 

@@ -1,10 +1,10 @@
-//import { TypeQuestion } from './Question';
+// import { TypeQuestion } from './Question';
 
-//import { Question } from './Question';
+// import { Question } from './Question';
 
-let Question = require('./Question');
-let QuestionBank = require('./QuestionBank');
-const TypeQuestion = require('./TypeQuestion');
+let Question = require('../model/Question.js');
+let QuestionBank = require('../model/QuestionBank.js');
+const TypeQuestion = require('../model/TypeQuestion.js');
 
 // giftParser
 
@@ -208,6 +208,9 @@ GiftParser.prototype.gift = function(input){
 		question_text = this.removeSpaces(question_text);
 
 		let q = new Question(null, title, question_text, text_formating, type_question, ca, ia, pca, cf, ife, pcf, gift_format);
+		if (title == ''){
+			this.errMsg('Missing title', q);
+		}
 		this.parsedQuestion.push(q);
 		//Question.questionBank.push(q);
 
@@ -280,6 +283,7 @@ GiftParser.prototype.answers = function(input){
 	// Essay
 	if (this.check('}', input)){
 		input = this.reduce(input);
+		Question.nbOpenQuestion++;
 		return { tq: TypeQuestion.OPEN_QUESTION, ca: [], ia: [], pca: [], cf: [], ife: [], pcf: [], in: input};
 	}
 
@@ -340,6 +344,7 @@ GiftParser.prototype.answers = function(input){
 			}
 		}
 		input = this.reduce(input);
+		Question.nbNumeric++;
 		return {tq: TypeQuestion.NUMERIC, ca: correct_answers, ia: incorrect_answers, pca: partially_correct_answer, cf: correct_feedbacks, ife: incorrect_feedbacks, pcf: partially_correct_feedback, in: input};
 	}
 
@@ -366,6 +371,7 @@ GiftParser.prototype.answers = function(input){
 		}
 		correct_answers.push('TRUE');
 		input = this.reduce(input);
+		Question.nbTrueFalse++;
 		return {tq: TypeQuestion.TRUE_FALSE, ca: correct_answers, ia: incorrect_answers, pca: partially_correct_answer, cf: correct_feedbacks, ife: incorrect_feedbacks, pcf: partially_correct_feedback, in: input};
 	}
 	if (input.startsWith('FALSE')){
@@ -391,6 +397,7 @@ GiftParser.prototype.answers = function(input){
 		}
 		correct_answers.push('FALSE');
 		input = this.reduce(input);
+		Question.nbTrueFalse++;
 		return {tq: TypeQuestion.TRUE_FALSE, ca: correct_answers, ia: incorrect_answers, pca: partially_correct_answer, cf: correct_feedbacks, ife: incorrect_feedbacks, pcf: partially_correct_feedback, in: input};
 	}
 	if (this.check2Char('T}', input) || this.check2Char('F}', input)){
@@ -401,6 +408,7 @@ GiftParser.prototype.answers = function(input){
 		}
 		input = this.reduce(input);
 		input = this.reduce(input);
+		Question.nbTrueFalse++;
 		return {tq: TypeQuestion.TRUE_FALSE, ca: correct_answers, ia: incorrect_answers, pca: partially_correct_answer, cf: correct_feedbacks, ife: incorrect_feedbacks, pcf: partially_correct_feedback, in: input};
 	}
 
@@ -493,12 +501,15 @@ GiftParser.prototype.answers = function(input){
 			}
 			if (test){	// True if input is empty (only spaces, \n, \r)
 				type_question = TypeQuestion.MULTIPLE_CHOICE;
+				Question.nbMulipleChoice++;
 			}else{
 				type_question = TypeQuestion.MISSING_WORD;
+				Question.nbMissingWord++;
 			}
 		}
 	} else {
 		type_question = TypeQuestion.MATCHING;
+		Question.nbMatching++;
 	}
 
 	return {tq: type_question, ca: correct_answers, ia: incorrect_answers, pca: partially_correct_answer, cf: correct_feedbacks, ife: incorrect_feedbacks, pcf: partially_correct_feedback, in: input};

@@ -4,15 +4,22 @@
   "description": "",
   "main": "Cli.js",
   "dependencies": {
-    "@caporal/core": "^2.0.7",
+    "@caporal/core": "^2.0.2",
+    "canvas": "^2.11.2",
+    "chart.js": "^4.4.1",
+    "chartjs-to-image": "^1.2.2",
     "colors": "^1.4.0",
-    "prompt-sync": "^4.2.0",
-    "readline-sync": "^1.4.10",
     "vega": "^5.17.0",
     "vega-lite": "^4.17.0"
   },
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node cli.js",  
+    "createTest": "node cli.js createTest",
+    "addQuestion": "node cli.js addQuestion",
+    "loadQB": "node cli.js loadQB <file>",
+    "verify": "node cli.js verify",
+    "read": "node cli.js read"
   },
   "keywords": [],
   "author": "",
