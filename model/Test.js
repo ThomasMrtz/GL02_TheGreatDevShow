@@ -1,6 +1,7 @@
 const Question = require("./Question.js");
 const giftParser = require("../parser/giftParser.js");
 const Profile = require("./Profile.js");
+const prompt = require('prompt-sync')();
 
 class Test {
     static testBank = [];
@@ -119,7 +120,100 @@ class Test {
         return new Profile(mc, tf, m, mw, num, oq);
     }
 
-    simulate() {}
+    simulate() {
+        var cpt = 0;
+        var responses = [[]];    
+
+        for(let a=0; a<this.questions.length;a++){
+            this.questions[a].visualiseForStudents();
+        }
+
+        for (let b = 0; b < this.questions.length; b++) {
+            if(this.questions[b].typeQuestion == null){
+                this.questions.splice(b, 1);
+            }
+        }
+        
+        for (let c = 0; c < this.questions.length-1; c++) {
+            responses.push([]);
+        }
+
+        var alreadyAws = [];
+        console.log(this.questions.length, " questions ")
+        while(cpt < this.questions.length){
+            
+            do{
+            console.log("You can't respond twice to the same question !")
+            var nb = prompt("Which question you want to respond to ? (Type a number) : ");
+            }
+            while(alreadyAws.includes(nb));
+            console.log(typeof(nb))
+            alreadyAws.push(nb)
+            console.log("Question n°", nb);
+            
+            var qtype = this.questions[nb].getTypeQuestion();
+            console.log(qtype)
+            console.log("-----------------")
+            console.log(this.questions[nb])
+            let resp;
+
+            switch(qtype){
+            case "Multiple Choice":
+                resp = prompt("Type your answer : ");
+                responses[nb][0] = resp;
+                break;
+            case "True-False":
+                resp = prompt("Type true or false (t or f) : ");
+                responses[nb][0] = resp;
+                break;
+            case "Matching":
+                for(let d=0;d<this.questions[nb].correct_answer[0].length;d++){
+                    console.log("Type the phrase and his match with '->' between :")
+                    resp = prompt("rep : ")
+                    responses[nb][d] = resp;  
+                }
+                break;
+            case "Missing-Word":
+                for(let e=0;e<this.questions[nb].correct_answer.length;e++){
+                    console.log(this.questions[nb].correct_answer)
+                    resp = prompt("Type the missing word : ")
+                    responses[nb][e] = resp;  
+                }
+                break;
+            case "Numeric":
+                resp = prompt("Type the number : ")
+                responses[nb][0] = resp;
+                break;
+            case "Open-Question":
+                resp = prompt("Type a relevant sentence : ")
+                responses[nb][0] = resp;
+                break;
+            default:
+             console.log("rien");
+                break;
+        }
+        
+        cpt++;
+        
+
+        }
+        
+        for(let n=0;n<responses.length;n++){
+            console.log(responses)
+            console.log(n)
+            console.log(this.questions[n].check(responses[n]))
+
+        }
+
+         /*
+        if question1.check(answer1) == false {
+            console.log(The answer for the question + idx + is ...);
+            noErr++;
+        }
+        
+        if (noErr) == 0 then console.log("All the answers were correct!");
+        */
+    }
 }
 
 module.exports = Test;

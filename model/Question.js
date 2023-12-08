@@ -322,6 +322,48 @@ class Question {
 
     // Check if the userAnswer is a correct answer
     check(userAnswer){
+        if (Array.isArray(userAnswer)){
+            for (let i = 0; i < userAnswer.length; i++){
+                if (userAnswer[i] == '-'){
+                    userAnswer[i] = '—';
+                }
+            }
+        }else{
+            if (userAnswer == '-'){
+                userAnswer = '—';
+            }
+        }
+
+        if (this.typeQuestion == TypeQuestion.MATCHING){
+            if (userAnswer.length != this.correct_answer.length){
+                return false;
+            }
+            for (let i = 0; i < userAnswer.length; i++){
+                let test = false;
+                for (let j = 0; j < this.correct_answer.length; j++){
+                    let answerToCheck = userAnswer[i];
+                    answerToCheck = Question.removeUselessChars(answerToCheck);
+                    answerToCheck = answerToCheck.replace(/\-/g, '');
+                    answerToCheck = answerToCheck.replace(/\>/g, '');
+                    answerToCheck = answerToCheck.replace(/\—/g, '');
+
+                    let correctAnswer = this.correct_answer[j];
+                    correctAnswer = Question.removeUselessChars(correctAnswer);
+                    correctAnswer = correctAnswer.replace(/\-/g, '');
+                    correctAnswer = correctAnswerk.replace(/\>/g, '');
+                    correctAnswer = correctAnswer.replace(/\—/g, '');
+
+                    if (answerToCheck == correctAnswer){
+                        test = true;
+                    }
+                }
+                if (!test){
+                    return false;
+                }
+            }
+            return true;
+        }
+
         if (this.correct_answer != []){
 
             if (Array.isArray(this.correct_answer[0])){
@@ -343,7 +385,7 @@ class Question {
                                     break;
                                 case TypeQuestion.NUMERIC:
                                     if (this.correct_answer[i][j].includes(':')){
-                                        let answer = removeUselessChars(this.correct_answer[i][j]);
+                                        let answer = Question.removeUselessChars(this.correct_answer[i][j]);
                                         if (answer[0] == '%'){
                                             answer = answer.substring(1);
                                             while (answer[0] != '%'){
@@ -421,6 +463,11 @@ class Question {
                                     break;
                             }
                         }
+                        for (let j = 0; j < this.partially_correct_answer[i].length; j++){
+                            if (Question.removeUselessChars(userAnswer[i]) == Question.removeUselessChars(this.partially_correct_answer[i][j])){
+                                isCorrect = true;
+                            }
+                        }
                     }
                     if (!isCorrect){
                         return false;
@@ -443,7 +490,7 @@ class Question {
                             break;
                         case TypeQuestion.NUMERIC:
                             if (this.correct_answer[i].includes(':')){
-                                let answer = removeUselessChars(this.correct_answer[i]);
+                                let answer = Question.removeUselessChars(this.correct_answer[i]);
                                 if (answer[0] == '%'){
                                     answer = answer.substring(1);
                                     while (answer[0] != '%'){
@@ -521,6 +568,11 @@ class Question {
                             break;
                     }
                 }
+                for (let i = 0; i < this.partially_correct_answer.length; i++){
+                    if (Question.removeUselessChars(userAnswer) == Question.removeUselessChars(this.partially_correct_answer[i])){
+                        return true;
+                    }
+                }
                 return false;
             } 
         }
@@ -549,6 +601,10 @@ class Question {
         }else{
             return false;
         }
+    }
+
+    getTypeQuestion(){
+        return this.typeQuestion;
     }
 
     /*
