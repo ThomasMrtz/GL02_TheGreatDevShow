@@ -153,8 +153,7 @@ class Test {
             
             var qtype = this.questions[nb].getTypeQuestion();
             console.log(qtype)
-            console.log("-----------------")
-            console.log(this.questions[nb])
+            
             let resp;
 
             switch(qtype){
@@ -175,7 +174,6 @@ class Test {
                 break;
             case "Missing-Word":
                 for(let e=0;e<this.questions[nb].correct_answer.length;e++){
-                    console.log(this.questions[nb].correct_answer)
                     resp = prompt("Type the missing word : ")
                     responses[nb][e] = resp;  
                 }
@@ -200,19 +198,10 @@ class Test {
         
         for(let n=0;n<responses.length;n++){
             console.log(responses)
-            console.log(n)
             console.log(this.questions[n].check(responses[n]))
 
         }
 
-         /*
-        if question1.check(answer1) == false {
-            console.log(The answer for the question + idx + is ...);
-            noErr++;
-        }
-        
-        if (noErr) == 0 then console.log("All the answers were correct!");
-        */
     }
 }
 

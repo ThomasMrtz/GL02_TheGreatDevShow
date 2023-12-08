@@ -43,8 +43,6 @@ const fileArray = [
     // Add more file paths here as needed
 ];
 
-// ... (Previous code remains unchanged)
-
 async function runProcess() {
     var qb = new QuestionBank([]);
     qb = await processGiftFiles(fileArray);
@@ -53,12 +51,10 @@ async function runProcess() {
     var testo = new Test();
     console.log(qb)
     // Add questions from the QuestionBank to the Test
-    //testo.add(qb.questions[0]); // Adjust this part as needed
     testo.add(qb.questions[0]);
     testo.add(qb.questions[1]);
     testo.add(qb.questions[2]);
     testo.add(qb.questions[3]);
-     // Adjust this part as needed
     // Add more questions as needed
     // Visualize the questions in the Test
     console.log("---------------------Visualize------------------")
