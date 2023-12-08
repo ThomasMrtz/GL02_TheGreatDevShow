@@ -18,6 +18,8 @@ program
     const testname = prompt('test name:').replace(/\s/g, '_');
     try {
       await fs.mkdir('./TestBank', { recursive: true });
+      await fs.mkdir('./Test', { recursive: true });
+
     }
     catch(error){
       console.error('Error :', error.message);
@@ -53,6 +55,33 @@ program
     } catch (error) {
       console.error('Error adding question:', error.message);
     }
+  })
+
+  .command('rmQuestion', 'remove a question from a test')
+  .action(async () => {
+    const teachername = prompt('teacher\'s name : ').replace(/\s/g, '_');
+    const testname = prompt('test name : ').replace(/\s/g, '_');
+    try {
+      const data= await parseData(`./Test/${teachername}/${testname}.gift`);
+      for(let i=0;i<data.length;i++){
+        console.log("question "+i+" : ");
+        data[i].visualise();
+        console.log('\n \n');
+      }
+      const idx=prompt("enter the index of the question you want to remove")
+      data.splice(idx, 1);
+      await fs.rename(`./Test/${teachername}/${testname}.gift`, `./Test/${teachername}/${testname}.gift`)  
+    }
+     catch (error) {
+      console.error('Error adding question:', error.message);
+    }
+  })
+
+  .command('takeTest', 'simulate a test from a student point of view')
+  .action(async () => {
+    const teachername = prompt('teacher\'s name : ').replace(/\s/g, '_');
+    const testname = prompt('test name : ').replace(/\s/g, '_');
+      simulate(`./TestBank/${teachername}/${testname}.gift`);
   })
 
   .command('read', 'Reads the question bank')
@@ -92,7 +121,7 @@ program
         }
         console.log("multiple identic questions. file corrected. please retry");
       }
-      else if (data.length>=15&&data.length<=20&&isEveryQuestionUnique){
+      else if (data.length>15&&data.length<=20&&isEveryQuestionUnique){
         await fs.rename(`./Test/${teachername}/${testname}.gift`, `./TestBank/${teachername}/${testname}.gift`)
       }
       else{console.log(`this test has ${data.length} questions, a test has to have between 15 and 20 questions`);} 
