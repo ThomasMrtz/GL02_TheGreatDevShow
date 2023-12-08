@@ -7,6 +7,7 @@ const prompt = require('prompt-sync')();
 const fs = require('fs').promises; // Use promises version of fs
 const Profile = require('./model/Profile');
 const path = require('path');
+const Test = require('./model/Test')
 
 const DATA_DIRECTORY = './parser/SujetB_data/';
 
@@ -147,8 +148,26 @@ program
   .command('compare', 'Compare profile of a test made by a professor with the profile of another test or question bank')
   .action(async () => {
     const teacherName = prompt('Enter teacher name: ');
-    displayTeacherTest()
-    const testname = prompt('Test name:').replace(/\s/g, '_');
+    // check if TestBank directory exists
+    try {
+      await fs.readdir('./TestBank/');
+    } catch (err) {
+      console.log("TestBank directory doesn't exist yet! Tests must be finished in order to be saved to this directory.")
+    }
+    
+    // check if teacher name directory exists in TestBank directory and display its files if valid
+    try {
+      await displayFileNames('./TestBank/' + teacherName + '/');
+    } catch (err) {
+      console.log("The teacher " + teacherName + " didn't finish any tests yet or the name is invalid!");
+    }
+    const testFileName = prompt('Enter a test file name (with the extention .gift):');
+
+    const testQuestions = await parseData('./TestBank/' + teacherName + '/' + testFileName);
+    const test = new Test();
+    test.addMore(testQuestions);
+
+    test.visualize();
   })
 
 async function getTeacherInfo() {
