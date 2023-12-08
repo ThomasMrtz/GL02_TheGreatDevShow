@@ -385,7 +385,7 @@ class Question {
                                     break;
                                 case TypeQuestion.NUMERIC:
                                     if (this.correct_answer[i][j].includes(':')){
-                                        let answer = removeUselessChars(this.correct_answer[i][j]);
+                                        let answer = Question.removeUselessChars(this.correct_answer[i][j]);
                                         if (answer[0] == '%'){
                                             answer = answer.substring(1);
                                             while (answer[0] != '%'){
@@ -490,7 +490,7 @@ class Question {
                             break;
                         case TypeQuestion.NUMERIC:
                             if (this.correct_answer[i].includes(':')){
-                                let answer = removeUselessChars(this.correct_answer[i]);
+                                let answer = Question.removeUselessChars(this.correct_answer[i]);
                                 if (answer[0] == '%'){
                                     answer = answer.substring(1);
                                     while (answer[0] != '%'){
