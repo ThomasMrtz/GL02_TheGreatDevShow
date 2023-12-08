@@ -418,10 +418,12 @@ class Question {
                                     if (Question.removeUselessChars(userAnswer[i]) == Question.removeUselessChars(this.correct_answer[i][j])){
                                         isCorrect = true;
                                     }
-                                    if (Question.removeUselessChars(userAnswer[i]) == Question.removeUselessChars(this.partially_correct_answer[i][j])){
-                                        isCorrect = true;
-                                    }
                                     break;
+                            }
+                        }
+                        for (let j = 0; j < this.partially_correct_answer[i].length; j++){
+                            if (Question.removeUselessChars(userAnswer[i]) == Question.removeUselessChars(this.partially_correct_answer[i][j])){
+                                isCorrect = true;
                             }
                         }
                     }
@@ -521,10 +523,12 @@ class Question {
                             if (Question.removeUselessChars(userAnswer) == Question.removeUselessChars(this.correct_answer[i])){
                                 return true;
                             }
-                            if (Question.removeUselessChars(userAnswer) == Question.removeUselessChars(this.partially_correct_answer[i])){
-                                return true;
-                            }
                             break;
+                    }
+                }
+                for (let i = 0; i < this.partially_correct_answer.length; i++){
+                    if (Question.removeUselessChars(userAnswer) == Question.removeUselessChars(this.partially_correct_answer[i])){
+                        return true;
                     }
                 }
                 return false;
