@@ -1,8 +1,14 @@
-const Teacher = require('./teacher');
+const Teacher = require('./model/Teacher');
 const GiftParser = require('./parser/giftParser');
 const { program } = require('@caporal/core');
+const QuestionBank = require('./model/QuestionBank');
+const TypeQuestion = require('./model/TypeQuestion');
 const prompt = require('prompt-sync')();
 const fs = require('fs').promises; // Use promises version of fs
+const Profile = require('./model/Profile');
+const path = require('path');
+
+const DATA_DIRECTORY = './parser/SujetB_data/';
 
 program
   .command('createTest', 'create a test by asking for teacher information and questions')
@@ -103,6 +109,54 @@ program
     } catch (error) {
       console.error('Error loading questions:', error.message);
     }
+  })
+
+  .command('displayFileNames', 'Displays a list of the files which contain the GIFT data')
+  .action(async ({ }) => {
+    try {
+      // use readdir method to read the files of the directory
+      const files = await fs.readdir(DATA_DIRECTORY);
+  
+      files.forEach(async file => {
+        // get the details of the file
+        const fileDetails = await fs.lstat(path.resolve(DATA_DIRECTORY, file));
+  
+        // check if the file is a directory
+        if (fileDetails.isDirectory()) {
+          console.log('Directory: ' + file);
+        } else {
+          console.log('File: ' + file);
+        }
+      });
+    } catch (err) {
+      console.error('Error reading directory:', err);
+    }
+  })
+
+  .command('visualizeProfile', 'Generates a histogram based on a GIFT file')
+  .argument('[files...]', 'The files containing the questions to analyze')
+  .action(async ({ args, logger }) => {
+    const qb = new QuestionBank([]);
+    await displayGIFTFileNames(DATA_DIRECTORY);
+    
+    try {
+      // Use Promise.all to wait for all file processing tasks to complete
+      await Promise.all(args.files.map(async file => {
+        const fileQuestions = await processGiftFile(file);
+        if (fileQuestions != null) {
+          qb.addMore(fileQuestions);
+        } else {
+          console.error("Error while processing GIFT file " + file);
+        }
+      }));
+
+      const qbProfile = qb.createProfile();
+      console.log(qbProfile);
+      
+      await qbProfile.visualize();
+    } catch (err) {
+      console.error('Error during visualizing:', err);
+    }
   });
 
 async function getTeacherInfo() {
@@ -130,12 +184,11 @@ async function getQuestionsFromTeacher() {
       console.log('Question not found');
       return null;
     }
-  } catch (error) {
+    } catch (error) {
     console.error('Error getting questions:', error.message);
     return null;
   }
 }
-
 
 async function saveToFile(data, filename) {
   await fs.writeFile(filename, data);
@@ -153,6 +206,27 @@ async function parseData(filePath) {
   }
 
   return analyzer.parsedQuestion;
+}
+
+
+
+
+async function processGiftFile(fileName) {
+  try {
+    const data = await fs.readFile("./parser/SujetB_data/" + fileName, 'utf8');
+    const analyzer = new GiftParser(false, false);
+    analyzer.parse(data);
+    if (analyzer.errorCount === 0) {
+      console.log(`${fileName} is a valid .gift file`);
+    } else {
+      console.log(`${fileName} contains errors`);
+    }
+    return analyzer.parsedQuestion;
+  }
+  catch (err) {
+    console.error('Error processing files:', err);
+    return null;
+  }
 }
 
 program.run();

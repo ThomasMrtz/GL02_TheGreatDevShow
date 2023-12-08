@@ -1,5 +1,6 @@
 const Question = require('./Question.js');
 const Profile = require('./Profile.js');
+const TypeQuestion = require('./TypeQuestion.js')
 
 class QuestionBank {
 
