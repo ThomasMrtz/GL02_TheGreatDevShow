@@ -329,8 +329,25 @@ class Question {
                     let isCorrect = false;
                     if (this.correct_answer[i] != []){
                         for (let j = 0; j < this.correct_answer[i].length; j++){
-                            if (Question.removeUselessChars(answer[i]) == Question.removeUselessChars(this.correct_answer[i][j])){
-                                isCorrect = true;
+                            switch (this.typeQuestion){
+                                case TypeQuestion.TRUE_FALSE:
+                                    if (this.correct_answer[i][j] == 'T' || this.correct_answer[i][j] == 'TRUE'){
+                                        if (Question.removeUselessChars(userAnswer[i]) == 'T' || Question.removeUselessChars(userAnswer[i]) == 'TRUE'){
+                                            isCorrect = true;
+                                        }
+                                    }else{
+                                        if (Question.removeUselessChars(userAnswer[i]) == 'F' || Question.removeUselessChars(userAnswer[i]) == 'FALSE'){
+                                            isCorrect = true;
+                                        }
+                                    }
+                                    break;
+                                case TypeQuestion.NUMERIC:
+
+                                default:
+                                    if (Question.removeUselessChars(userAnswer[i]) == Question.removeUselessChars(this.correct_answer[i][j])){
+                                        isCorrect = true;
+                                    }
+                                    break;
                             }
                         }
                     }
