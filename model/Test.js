@@ -198,7 +198,13 @@ class Test {
         
         for(let n=0;n<responses.length;n++){
             console.log(responses)
-            console.log(this.questions[n].check(responses[n]))
+            var checked = this.questions[n].check(responses[n]);
+            if(checked == true){
+                console.log("Good answer for the Question n°", n, " -> ", responses[n])
+            }
+            else{
+                console.log("Wrong answer for the Question n°", n, " the response was ", this.questions[n].correct_answer)
+            }
 
         }
 
