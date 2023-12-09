@@ -1,6 +1,6 @@
-const Question = require('./Question.js');
-const Profile = require('./Profile.js');
-const TypeQuestion = require('./TypeQuestion.js')
+const Question = require('./Question');
+const Profile = require('./Profile');
+const TypeQuestion = require('./TypeQuestion')
 
 class QuestionBank {
 
@@ -22,13 +22,7 @@ class QuestionBank {
     }
 
     addMore(questions) {
-        /*
-        for(let i=0;i<questions.length;i++){
-            this.add(questions[i]);
-        }
-        */
         this.questions.push.apply(this.questions,questions);
-
     }
 
     // find a question by index
@@ -71,7 +65,7 @@ class QuestionBank {
             }
         });
 
-        return new Profile(mc, tf, m, mw, num, oq);
+        return new Profile('Question Bank', mc, tf, m, mw, num, oq);
     }
 }
 

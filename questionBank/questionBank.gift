@@ -1,0 +1,157 @@
+::U5 p50 0/4 Text::[html]<p><small><i>Read the text and fill in each gap with a single word. It can be an expression of quantity for some of the gaps.</i></small></p>
+<h5>Why do people love chilli?</h5>
+<p>People don't wash their eyes in lemon juice or pour boiling hot tea over themselves, so why are we prepared to go through so <i>much</i> pain for the sake of chilli?</p>
+<p>Chilli is not the only strange thing that people seem to enjoy. For example, very {1:SA:=few} people like the bitter taste of coffee to begin with but soon most of us {1:SA:=get~=become~=grow} used to it. But coffee contains caffeine, which has some addictive qualities, and this explains {1:SA:=why} it is so popular. But capsaicin, the ingredient which makes chillies hot, does not seem to have {1:SA:=any} addictive qualities whatsoever. {1:SA:=If~=if} we consumed a large quantity of it, it would kill us. And yet chillies have {1:SA:=been} used in cooking in almost {1:SA:=every} culture for thousands of years. Today, a third of the world's population eat chilli at least once a day. Lots of our favourite dishes just wouldn't taste right {1:SA:=without} it.</p>
+
+// Exercise 2: Multiple Choice
+
+::U5 p50 2.0 Text comprehension::Read the text above and choose the correct option.
+
+::U5 p50 2.1::The writer {~likes~=doesn’t} like chilli.
+
+::U5 p50 2.2::Chilli {~can be~=isn’t} very addictive.
+
+// Exercise 5: Short Answer
+
+::U5 p50 5.0 Expressions of quantity::Look at the expressions of quantity from the text. Find at least one other way to say the same thing as the underlined word.
+
+::U5 p50 5.1 very few::[html]<u>Very few people</u> {=not many people=hardly any people=only a few people=almost no-one}
+
+::U5 p50 5.2 not any::[html]<u>Does not seem to have any</u> addictive qualities {=has very few=has hardly any=has no}
+
+::U5 p50 5.3 a large quantity of::[html]<a>A large quantity of</u> {=a huge amount of=a great deal of=a lot of}
+
+::U5 p50 5.4 lots of::[html]<u>Lots</u> of our favourite dishes {=many=a large number}
+// Grammar Ex. 3 (p. 35)
+// Subject/verb agreement
+
+::EM U5 p35 Gra3.0 Subject/verb agreement::Choose the correct options to complete the sentences.
+
+::EM U5 p35 Gra3.1::Eating too much sugar {=is~are} bad for young children.
+
+::EM U5 p35 Gra3.2::Most of my friends {~eats=eat} fast food regularly.
+
+::EM U5 p35 Gra3.3::Not many people {=enjoy~enjoys} raw vegetables.
+
+::EM U5 p35 Gra3.4::There {~was=were} few people in the restaurant.
+
+::EM U5 p35 Gra3.5::It's good that there {=is~are} lots of advice about healthy lifestyles.
+$CATEGORY: $course$/top/Gold B2, Unit 9
+
+::U9 p95 4.0 Third conditional::<b>Complete the sentences below to express criticism. Use the third conditional and the cues in brackets. Write the <u>full B response</u> (full sentence) in the field below each question.</b><br>
+<i>Example:</i><br>
+<b>A:</b> I was only just able to brake in time when a deer ran out in front of me. (<i>drive more slowly</i>) <br>
+<b>B:</b> If you’d been <b><u>driving more slowly, you wouldn’t have had to brake</u></b> so suddenly.
+
+::U9 p95 4.2 Third conditional::[html]
+<b>A:</b> I hit my head on the windscreen when I stopped. (<i>wear a seatbelt</i>) <br>
+<b>B:</b> You ____.{}
+
+::U9 p95 4.3 Third conditional::[html]
+<b>A:</b> We set off a bit late and got held up in the traffic. (<i>leave earlier</i>) <br>
+<b>B:</b> If you ____ in the traffic.{}
+
+::U9 p95 4.4 Third conditional::[html]
+<b>A:</b> We got stuck on a mountain because a heavy fog suddenly came down. (<i>check weather forecast</i>) <br>
+<b>B:</b> If ____ on a mountain in the fog.{}
+
+::U9 p95 4.5 Third conditional::[html]
+<b>A:</b> I went to get a coffee and lost all the work I was doing. (<i>save the document</i>) <br>
+<b>B:</b> You ____.{}
+
+::U9 p95 4.6 Third conditional::[html]
+<b>A:</b> I was doing something else so I didn't hear what she said. (<i>pay attention</i>) <br>
+<b>B:</b> If ____ what she said.{}
+
+::U6 p59 Voc10.1 the arts::[html]<small><p><i>Complete the sentence with one of the following words: <b>abstract • blockbusters • cast • contemporary • gallery • productions</b>.</i></p></small>
+<p>I'm not convinced I like all classical ballet but I love {=contemporary} dance.</p>
+
+::U6 p59 Voc10.2 the arts::[html]<small><p><i>Complete the sentence with one of the following words: <b>abstract • blockbusters • cast • contemporary • gallery • productions</b>.</i></p></small>
+<p>I sometimes nip into an art {=gallery} or exhibition during my lunch break.</p>
+
+::U6 p59 Voc10.3 the arts::[html]<small><p><i>Complete the sentence with one of the following words: <b>abstract • blockbusters • cast • contemporary • gallery • productions</b>.</i></p></small>
+<p>I prefer landscapes or portraits to more {=abstract} paintings.</p>
+
+::U6 p59 Voc10.4 the arts::[html]<small><p><i>Complete the sentence with one of the following words: <b>abstract • blockbusters • cast • contemporary • gallery • productions</b>.</i></p></small>
+<p>I'll often go to a play more than once if there's a different {=cast} performing.</p>
+
+::U6 p59 Voc10.5 the arts::[html]<small><p><i>Complete the sentence with one of the following words: <b>abstract • blockbusters • cast • contemporary • gallery • productions</b>.</i></p></small>
+<p>I tend to go for original theatre {=productions} by controversial directors.</p>
+
+::U6 p59 Voc10.6 the arts::[html]<small><p><i>Complete the sentence with one of the following words: <b>abstract • blockbusters • cast • contemporary • gallery • productions</b>.</i></p></small>
+<p>I'm a keen film-goer but I usually avoid {=blockbusters}.
+
+::U5 p57 Rev1.0::Choose the best answer to complete the sentences
+
+::U5 p57 Rev1.1::He snacks a lot {~besides ~on =between ~from} meals.
+
+::U5 p57 Rev1.2::It’s important to eat a diet {~rich =high ~full ~plenty} in vitamins.
+
+::U5 p57 Rev1.3::People would be healthier if they ate less {=fast ~quick ~hurried ~speedy} food.
+
+::U5 p57 Rev1.4::Never add salt to any dish without {=tasting ~cooking ~flavouring ~pouring} it first to see if it’s needed.
+
+::U5 p57 Rev1.5::Some cultures are known {~by =for ~about ~with} their spicy food.
+
+::U5 p57 Rev1.6::What { ~parts ~items =ingredients ~pieces} are needed to make that dish?
+
+::U5 p57 Rev1.7::A lot of children are addicted {~for ~on =to ~by} sugar.
+
+::U5 p57 Rev1.8::The price of co!ee {~raised =increased ~expanded ~doubled} by more than 20 percent last year.
+
+// 2
+
+::U5 p57 Rev2.0::Complete the sentences with one word.
+
+::U5 p57 Rev2.1::We’ve got very {=little} cheese left. Can you go to the shops for me?
+
+::U5 p57 Rev2.2::I don’t eat {=many} eggs these days; just two a week.
+
+::U5 p57 Rev2.3::There’s only a tiny {=bit=piece=slice} of cake left. Who’s eaten it all?
+
+::U5 p57 Rev2.4::She eats {=hardly} any chocolate these days.
+
+::U5 p57 Rev2.5::Eating {=lots=plenty} of fruit is very good for you.
+
+::U5 p57 Rev2.6::There are only a {=few} calories in a strawberry.
+
+::U5 p57 Rev2.7::There’s a great {=deal} of salt in this dish.
+
+::U5 p57 Rev2.8::We cooked an enormous {=amount=quantity} of food for the party
+
+// 3
+
+::U5 p57 Rev3.0::Choose the correct word in to complete the sentences.
+
+::U5 p57 Rev3.1::A high percentage of people {~is=are} allergic to nuts.
+
+::U5 p57 Rev3.2::Both co!ee and tea {=contain~contains} a lot of ca!eine.
+
+::U5 p57 Rev3.3::Only one of my brothers {=is~are} a good cook.
+
+::U5 p57 Rev3.4::Neither of my parents {~eat=eats} meat.
+
+::U5 p57 Rev3.5::The government {=has~have} introduced new rulesabout food labels.
+
+::U5 p57 Rev3.6::Information on ways to improve your diet {=is~are} available on the website.
+
+::U5 p57 Rev3.7::The Spanish {=eat~eats} a lot of fish.
+
+::U5 p57 Rev3.8::Four hundred pounds {=is~are} an awful lot ofmoney to spend on one meal.
+
+// 4
+
+::U5 p57 Rev4.0 Passive forms::Complete the sentences with the correct passive form of the verb in brackets.
+
+::U5 p57 Rev4.1 Passive forms::[html]Children {=are taught} <i>(teach)</i> about healthy eating in many schools.
+
+::U5 p57 Rev4.2 Passive forms::[html]This restaurant { =has been revd} <i>(rev</i> in six newspapers recently.
+
+::U5 p57 Rev4.3 Passive forms::[html]The onions must {=be fried} <i>(fry)</i> until they are soft.
+
+::U5 p57 Rev4.4 Passive forms::[html]That chef {=is said} <i>(say)</i> to be extremely talented.
+
+::U5 p57 Rev4.5 Passive forms::[html]All the cake {=was eaten} <i>(eat)</i> last night.
+
+::U5 p57 Rev4.6 Passive forms::[html]Only fifty people {=be invited =were invited} <i>(invite)</i> to their wedding, which is on Saturday
+

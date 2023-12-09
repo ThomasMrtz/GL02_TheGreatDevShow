@@ -1,4 +1,5 @@
 const Question = require("./Question.js");
+const TypeQuestion = require("./TypeQuestion.js")
 const giftParser = require("../parser/giftParser.js");
 const Profile = require("./Profile.js");
 const prompt = require('prompt-sync')();
@@ -6,7 +7,9 @@ const prompt = require('prompt-sync')();
 class Test {
     static testBank = [];
 
-    constructor() {
+    constructor(name, author) {
+        this.name = name;
+        this.author = author;
         this.questions = [];
     }
 
@@ -19,6 +22,10 @@ class Test {
 
     add(question) {
         this.questions.push(question);
+    }
+
+    addMore(questions) {
+        this.questions.push.apply(this.questions, questions);
     }
 
     remove(question) {
@@ -60,33 +67,6 @@ class Test {
         return true;
     }
 
-    // checks if the test contains duplicate questions
-    haveUniqueQuestions() {
-        return new Set(this.questions).size === this.questions.length;
-    }
-
-    // checks if there are at least 15 unique questions and maximum 20
-    finishTest() {
-        let questionNo = this.questions.length;
-
-        if(questionNo < 14) {
-            console.error("Not enought questions! The test should contain minimum 15 questions. Please add more.");
-            return false;
-        }
-        if(questionNo > 20) {
-            console.error("Too many questions! The test should contain at most 20 questions. Please remove " + (questionNo - 20) + " questions.");
-            return false;
-        }
-
-        if(!this.haveUniqueQuestions()) {
-            return false;
-        }
-
-        // test can be saved in the test bank
-        testBank.push(this);
-        return true;
-    }
-
     createProfile() {
         let mc = 0;
         let tf = 0;
@@ -117,7 +97,7 @@ class Test {
             }
         });
 
-        return new Profile(mc, tf, m, mw, num, oq);
+        return new Profile(this.name, mc, tf, m, mw, num, oq);
     }
 
     simulate() {
