@@ -350,7 +350,7 @@ class Question {
                     let correctAnswer = this.correct_answer[j];
                     correctAnswer = Question.removeUselessChars(correctAnswer);
                     correctAnswer = correctAnswer.replace(/\-/g, '');
-                    correctAnswer = correctAnswerk.replace(/\>/g, '');
+                    correctAnswer = correctAnswer.replace(/\>/g, '');
                     correctAnswer = correctAnswer.replace(/\—/g, '');
 
                     if (answerToCheck == correctAnswer){
@@ -373,7 +373,7 @@ class Question {
                         for (let j = 0; j < this.correct_answer[i].length; j++){
                             switch (this.typeQuestion){
                                 case TypeQuestion.TRUE_FALSE:
-                                    if (this.correct_answer[i][j] == 'T' || this.correct_answer[i][j] == 'TRUE'){
+                                    if (this.correct_answer[i][j] == 'T' || this.correct_answer[i][j] == 'TRUE' || this.correct_answer[i][j] == 'True' || this.correct_answer[i][j] == 'true' || this.correct_answer[i][j] == 't'){
                                         if (Question.removeUselessChars(userAnswer[i]) == 'T' || Question.removeUselessChars(userAnswer[i]) == 'TRUE'){
                                             isCorrect = true;
                                         }
@@ -407,7 +407,7 @@ class Question {
                                         correctNumber = parseFloat(correctNumber);
                                         range = parseFloat(range);
                                         let userAnswerInt = parseFloat(Question.removeUselessChars(userAnswer[i]));
-                                        if (userAnswerInt >= correctNumber - range && userAnswerInt <= correctNumber + range){
+                                        if (userAnswerInt >= (correctNumber - range) && userAnswerInt <= (correctNumber + range)){
                                             isCorrect = true;
                                         }
                                     } else {
@@ -478,7 +478,7 @@ class Question {
                 for (let i = 0; i < this.correct_answer.length; i++){
                     switch (this.typeQuestion){
                         case TypeQuestion.TRUE_FALSE:
-                            if (this.correct_answer[i] == 'T' || this.correct_answer[i] == 'TRUE'){
+                            if (this.correct_answer[i] == 'T' || this.correct_answer[i] == 'TRUE' || this.correct_answer[i] == 'True' || this.correct_answer[i] == 'true' || this.correct_answer[i] == 't'){
                                 if (Question.removeUselessChars(userAnswer) == 'T' || Question.removeUselessChars(userAnswer) == 'TRUE'){
                                     return true;
                                 }
@@ -512,7 +512,7 @@ class Question {
                                 correctNumber = parseFloat(correctNumber);
                                 range = parseFloat(range);
                                 let userAnswerInt = parseFloat(Question.removeUselessChars(userAnswer));
-                                if (userAnswerInt >= correctNumber - range && userAnswerInt <= correctNumber + range){
+                                if (userAnswerInt >= (correctNumber - range) && userAnswerInt <= (correctNumber + range)){
                                     return true;
                                 }
                             } else {
