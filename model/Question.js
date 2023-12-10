@@ -360,18 +360,18 @@ class Question {
                             switch (this.typeQuestion){
                                 case TypeQuestion.TRUE_FALSE:
                                     if (this.correct_answer[i][j] == 'T' || this.correct_answer[i][j] == 'TRUE' || this.correct_answer[i][j] == 'True' || this.correct_answer[i][j] == 'true' || this.correct_answer[i][j] == 't'){
-                                        if (Question.removeUselessChars(userAnswer[i]) == 'T' || Question.removeUselessChars(userAnswer[i]) == 'TRUE'){
+                                        if (Question.removeUselessChars(userAnswer[i]).toUpperCase() == 'T' || Question.removeUselessChars(userAnswer[i]).toUpperCase() == 'TRUE'){
                                             isCorrect = true;
                                         }
                                     }else{
-                                        if (Question.removeUselessChars(userAnswer[i]) == 'F' || Question.removeUselessChars(userAnswer[i]) == 'FALSE'){
+                                        if (Question.removeUselessChars(userAnswer[i]).toUpperCase() == 'F' || Question.removeUselessChars(userAnswer[i]).toUpperCase() == 'FALSE'){
                                             isCorrect = true;
                                         }
                                     }
                                     break;
                                 case TypeQuestion.NUMERIC:
                                     if (this.correct_answer[i][j].includes(':')){
-                                        let answer = removeUselessChars(this.correct_answer[i][j]);
+                                        let answer = Question.removeUselessChars(this.correct_answer[i][j]);
                                         if (answer[0] == '%'){
                                             answer = answer.substring(1);
                                             while (answer[0] != '%'){
@@ -389,6 +389,9 @@ class Question {
                                         while (answer.length > 0){
                                             range = range + answer[0];
                                             answer = answer.substring(1);
+                                        }
+                                        if(correctNumber[0] == "="){
+                                            correctNumber = correctNumber.substring(1)
                                         }
                                         correctNumber = parseFloat(correctNumber);
                                         range = parseFloat(range);
@@ -464,12 +467,13 @@ class Question {
                 for (let i = 0; i < this.correct_answer.length; i++){
                     switch (this.typeQuestion){
                         case TypeQuestion.TRUE_FALSE:
+                            
                             if (this.correct_answer[i] == 'T' || this.correct_answer[i] == 'TRUE' || this.correct_answer[i] == 'True' || this.correct_answer[i] == 'true' || this.correct_answer[i] == 't'){
-                                if (Question.removeUselessChars(userAnswer) == 'T' || Question.removeUselessChars(userAnswer) == 'TRUE'){
+                                if (Question.removeUselessChars(userAnswer).toUpperCase() == 'T' || Question.removeUselessChars(userAnswer).toUpperCase() == 'TRUE'){
                                     return true;
                                 }
                             }else{
-                                if (Question.removeUselessChars(userAnswer) == 'F' || Question.removeUselessChars(userAnswer) == 'FALSE'){
+                                if (Question.removeUselessChars(userAnswer).toUpperCase() == 'F' || Question.removeUselessChars(userAnswer).toUpperCase() == 'FALSE'){
                                     return true;
                                 }
                             }
