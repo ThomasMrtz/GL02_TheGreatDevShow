@@ -51,9 +51,9 @@ async function runProcess() {
     var testo = new Test();
     console.log(qb)
     // Add questions from the QuestionBank to the Test
-    testo.add(qb.questions[0]);
-    testo.add(qb.questions[1]);
-    testo.add(qb.questions[2]);
+    //testo.add(qb.questions[0]);
+    //testo.add(qb.questions[1]);
+    //testo.add(qb.questions[2]);
     testo.add(qb.questions[3]);
     // Add more questions as needed
     // Visualize the questions in the Test
