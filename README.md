@@ -1,4 +1,4 @@
-# GIFT data format for online exams management
+# Command line interface tool for the management of exams according to the GIFT format files in the national bank of the SRYEM services
 
 ## Installation
 
@@ -25,6 +25,8 @@ Usually, there is no need of using all of them. That's why, the teacher will spe
     node cli.js loadQB <file_name>
 
 3 - Repeat step 2 until all the desired files are added
+
+## Manipulate data - exam management
 
 ### Visualize the questions from the loaded files
 
