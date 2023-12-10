@@ -36,8 +36,8 @@ async function processGiftFiles(filePaths) {
 const fileArray = [
     //'../parser/SujetB_data/EM-U4-p32_33-Review.gift',
     //'../parser/SujetB_data/EM-U42-Ultimate.gift',
-    '../parser/SujetB_data/U4-p47-Review.gift',
-    '../parser/SujetB_data/EM-U5-p34-Gra-Expressions_of_quantity.gift'
+    './parser/SujetB_data/U4-p47-Review.gift',
+    './parser/SujetB_data/EM-U5-p34-Gra-Expressions_of_quantity.gift'
     // 'SujetB_data/EM-U5-p34-Voc.gift',
     // 'SujetB_data/EM-U5-p35-Gra-Subject_verb_agreement.gift'
     // Add more file paths here as needed

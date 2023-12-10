@@ -336,47 +336,15 @@ class Question {
         }
 
         if (this.typeQuestion == TypeQuestion.MATCHING){
-            console.log("In matching check lengths ", userAnswer.length, " and ", this.correct_answer[0].length)
-            
-            if (userAnswer.length != this.correct_answer[0].length){
-                console.log("length false")
-                return false;
-            }
-            for (let i = 0; i < userAnswer.length; i++){
-                let test = false;
-                let answerToCheck = userAnswer[i];
+            for (let i = 0; i < userAnswer.length; i++) {
+                let answerToCheck = String(userAnswer[i]);
                 answerToCheck = Question.removeUselessChars(answerToCheck);
-                answerToCheck = answerToCheck.replace(/\-/g, '');
-                answerToCheck = answerToCheck.replace(/\>/g, '');
-                answerToCheck = answerToCheck.replace(/\—/g, '');
-                console.log("User answer : ", answerToCheck, " ", answerToCheck.length);
 
                 let correctAnswer = String(this.correct_answer[0][i]);
                 correctAnswer = Question.removeUselessChars(correctAnswer);
-                correctAnswer = correctAnswer.replace(/\-/g, '');
-                correctAnswer = correctAnswer.replace(/\>/g, '');
-                correctAnswer = correctAnswer.replace(/\—/g, '');
-                console.log("Correct answer : ", correctAnswer, " ", correctAnswer.length);
-                for(let j=0;j<correctAnswer.length;j++){
-                    if(userAnswer[j] == correctAnswer[j]){
-                        console.log("char true")
-                        console.log(answerToCheck[j], "=", correctAnswer[j])
-                        console.log(answerToCheck[j].charCodeAt(0), " ", correctAnswer[j].charCodeAt(0))
-                    }
-                    else{
-                        console.log("char false")
-                        console.log(answerToCheck[j], "<>", correctAnswer[j])
-                        console.log(answerToCheck[j].charCodeAt(0), " ", correctAnswer[j].charCodeAt(0))
-                    }
-                }
-                if (answerToCheck == correctAnswer){
-                        console.log("true");
-                        test = true;
-                }
-                
-                if (!test){
-                    console.log("false");
-                    return false;
+
+                if (answerToCheck != correctAnswer){
+                        return false;
                 }
             }
             return true;
@@ -608,6 +576,10 @@ class Question {
         answer = answer.replace(/\;/g, '');
         answer = answer.replace(/\!/g, '');
         answer = answer.replace(/\?/g, '');
+        answer = answer.replace(/\’/g,'\'');
+        answer = answer.replace(/\-/g, '');
+        answer = answer.replace(/\>/g, '');
+        answer = answer.replace(/\—/g, '');
         answer = answer.toLowerCase();
         return answer;
     }
