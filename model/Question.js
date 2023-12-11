@@ -322,7 +322,6 @@ class Question {
 
     // Check if the userAnswer is a correct answer
     check(userAnswer){
-        console.log(userAnswer, " and ", typeof(userAnswer))
         if (Array.isArray(userAnswer)){
             for (let i = 0; i < userAnswer.length; i++){
                 if (userAnswer[i] == '-'){

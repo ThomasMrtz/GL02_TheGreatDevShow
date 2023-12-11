@@ -115,9 +115,18 @@ program
 
   .command("takeTest", "Simulate a test from a student point of view")
   .action(async () => {
-    const teachername = prompt("Teacher's name : ").replace(/\s/g, "_");
-    const testname = prompt("Test name : ").replace(/\s/g, "_");
-    simulate(`./TestBank/${teachername}/${testname}.gift`);
+    const teachername = prompt("Teacher's name: ").replace(/\s/g, "_");
+    await displayFileNames("./TestBank/" + teachername + "/");
+    const testname = prompt("Test name: ").replace(/\s/g, "_");
+
+    var testFile = `./TestBank/${teachername}/${testname}.gift`;
+
+    // read questions from file and store them in a test object
+    var testQuestions = await parseData(testFile);
+    var test = new Test();
+    test.addMore(testQuestions);
+
+    test.simulate();
   })
 
   .command("read", "Reads the question bank")
