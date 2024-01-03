@@ -71,7 +71,8 @@ program
 
     try {
       const questions = await parseData(`./Test/${teachername}/${testname}.gift`);
-      console.log("Actual questions: ");
+      console.log("Questions from test: ");
+      if(questions.length == 0)console.log("No questions yet.");
       for (let i = 0; i < questions.length; i++) {
         console.log("Question " + i + ": ");
         questions[i].visualise();
