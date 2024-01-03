@@ -70,6 +70,13 @@ program
     const testname = prompt("Test name: ").replace(/\s/g, "_");
 
     try {
+      const questions = await parseData(`./Test/${teachername}/${testname}.gift`);
+      console.log("Actual questions: ");
+      for (let i = 0; i < questions.length; i++) {
+        console.log("Question " + i + ": ");
+        questions[i].visualise();
+        console.log("\n \n");
+      }
       const question = await getQuestionsFromTeacher();
       const giftFormat = question.gift_format;
       const data = await parseData(`./Test/${teachername}/${testname}.gift`);
