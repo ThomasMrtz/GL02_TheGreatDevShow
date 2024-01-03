@@ -17,6 +17,7 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node cli.js",
     "createTest": "node cli.js createTest",
+    "makeVcard": "node cli.js makeVcard",
     "addQuestion": "node cli.js addQuestion",
     "loadQB": "node cli.js loadQB <file>",
     "verify": "node cli.js verify",

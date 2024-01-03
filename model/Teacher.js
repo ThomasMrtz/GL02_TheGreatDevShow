@@ -21,6 +21,7 @@ ORG:${this.course} Teacher
 END:VCARD
 `;
     const repoPath = `./Test/${this.fullName}`
+    if (!fs.existsSync(repoPath))
     fs.mkdir(repoPath, (err) => {
         if (err) {
         console.error(err);
@@ -29,6 +30,7 @@ END:VCARD
         }
     });   
     const repoPath2 = `./TestBank/${this.fullName}`
+    if (!fs.existsSync(repoPath2))
     fs.mkdir(repoPath2, (err) => {
         if (err) {
         console.error(err);

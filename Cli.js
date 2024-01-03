@@ -37,6 +37,22 @@ program
   })
 
   .command(
+    "makeVcard",
+    "Create or update a single vcard"
+  )
+  .action(async () => {
+    const teacher = await getTeacherInfo();
+    try {
+      await fs.mkdir("./TestBank", { recursive: true });
+      await fs.mkdir("./Test", { recursive: true });
+    } catch (error) {
+      console.error("Error:", error.message);
+    }
+    teacher.generateVCard();
+    console.log("vCard created successfully.");
+  })
+
+  .command(
     "readTest",
     "Visualize the questions of a test (unfinished or not)"
   )
