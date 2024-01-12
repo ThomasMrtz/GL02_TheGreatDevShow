@@ -34,6 +34,12 @@ Usually, there is no need of using all of them. That's why, the teacher will spe
 
 ### Create an empty test
 
+    node cli.js makeVcard
+
+The teacher can create or edit his vcard.The teacher identifies, filling in the requested personal informations. The system will create 2 new directories (if they don't already exist): Test and TestBank. In both, another directory will be added, named after the inserted teacher (first name and last name separated by "_").
+
+### Create an empty test
+
     node cli.js createTest
 
 The teacher identifies, filling in the requested personal informations. The system will create 2 new directories (if they don't already exist): Test and TestBank. In both, another directory will be added, named after the inserted teacher (first name and last name separated by "_"). An empty gift file will be added to the Test/Teacher_Name directory. The name of the file will be the input provided by the user for the test name (spaces will be automatically replaced by "_").
