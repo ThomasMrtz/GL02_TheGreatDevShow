@@ -32,7 +32,7 @@ Usually, there is no need of using all of them. That's why, the teacher will spe
 
     node cli.js read
 
-### Create an empty test
+### Create or edit a vcard
 
     node cli.js makeVcard
 
